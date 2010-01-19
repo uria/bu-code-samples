@@ -1,0 +1,27 @@
+<%content_for 'meta' do%>
+    <meta name="robots" content="nofollow" />
+<%end%>
+
+<% if @bs.length > 0 %>
+<table class="stats">
+  <% @bs.each do |s|%>
+  <tr <%=cycle("class='odd'", "")%>>
+  <td><%=s.measured_on%>&nbsp;<%=private_icon s.private%></td>
+  <td class="weight"><%= weight_with_units(s.bodyweight)%></td>
+  <td class="bodyfat"><%=((s.bodyfat.nil?)?'-':s.bodyfat.to_s+'%')%></td>
+  <%  if @buttons %>
+  <td class="edit_options">
+    <%= link_to('edit', :action => 'edit', :id=> s.id)%> |
+    <%= link_to('delete', {:action => 'delete', :id=> s.id}, :confirm => 'Are you sure you want to delete this bodystat?', :post => true)%>
+  </td>
+  <% end %>
+  </tr>
+  <%end%>
+</table>
+<%= pagination_links(@pages)%>
+<%end%>
+
+<div class="button_container">
+  <%=button "New entry", {:action => 'new'}, 'new.gif', {:title => 'Log bodyweight & bodyfat'} if @buttons%>
+  <%=button "Export", {:action => 'export'}, 'export.gif', {:title => 'Export body stat. history'} if @bs.length > 0%>
+</div>

@@ -1,0 +1,16 @@
+<p>Dear user,</p>
+
+<p>
+You've just signed up to <a href="http://community.staleytraining.com">Charles Staley's Training Connection</a> service. Here are the details you'll need to access your journal:
+</p>
+
+<p>
+login: <%=@login%><br/>
+password: <%=@password%>
+</p>
+
+<p>
+We hope you enjoy our service!
+
+The Training Connection team.
+</p>

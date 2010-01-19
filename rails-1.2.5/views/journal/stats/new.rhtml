@@ -1,0 +1,186 @@
+<%content_for 'javascripts' do%>
+  <%= javascript_include_tag 'validation' %>
+  <%= javascript_include_tag 'unit_conversion3' %>
+<%end%>
+
+<%=error_messages_for 'bodystat'%>
+<%=requieres_javascript("Javascript required for bodyfat calculator.")%>
+<%=form_tag({}, {:autocomplete => 'off'})%>
+<p>
+<label>Date:</label><%=date_select 'bodystat', 'measured_on'%>
+<span id="private-check"><%=check_box 'bodystat', 'private'%><label for="bodystat_private">Private entry</label></span>
+</p>
+<p>
+<label>Bodyweight:</label><%=text_field_tag 'bodyweight', weight_without_units(@bodystat.bodyweight||0), {:size => 10, :onblur =>"javascript:light_validate_weight('bodyweight');"}%>
+</p>
+<p>
+<%=check_box_tag 'register_bodyfat', '1', @register_bodyfat,{'onclick'=> '$("bodyfat_span").style.display=($("register_bodyfat").checked==true?"inline":"none")'}%>Log bodyfat
+<span id='bodyfat_span' <%=@register_bodyfat?"":"style='display:none'"%>>
+<%=text_field 'bodystat', 'bodyfat', {:size => 10, :onblur =>"javascript:light_validate_positive_real('bodystat_bodyfat');"}%>%
+<button type="button" onclick="on_change(); Effect.toggle('bf_calculator', 'appear');">Bodyfat calculator</button>
+</span>
+</p>
+<%=submit_tag "Save"%>
+<%=end_form_tag%>
+<div id="bf_calculator" style="display:none">
+<fieldset><legend>Bodyfat Calculator</legend>
+  <p>
+  <strong>Method:&nbsp;</strong><select id="calculator_method" onchange="on_change()">
+  <option value="circumferences">Bodyfat estimation empolying circumferences (used by US Navy)</option>
+  <option value="skinfolds">Bodyfat estimation employing skinfold measurements</option>
+  </select>
+
+  <a id="help_circumferences" href="http://www.nhrc.navy.mil/programs/BodyFat/index.html">How to use this method</a>
+  <a id="help_skinfolds" href="http://www.t-nation.com/findArticle.do?article=209body2">How to use this method</a>
+  </p>
+  <p>
+  <strong>Select your sex:&nbsp;</strong><select id="sex" onchange="on_change()">
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+  </select>
+  </p>
+
+  <div id="circumferences_method">
+    <p>All measurements must be in centimeters:</p>
+    <table>
+    <tr><th></th><th>Circumference</th></tr>
+    <tr><th>Height:</th><td><input id="height" size="5" onblur='javascript:light_validate_positive_real("height")' /></td></tr>
+    <tr><th>Neck:</th><td><input id="neck" size="5" onblur='javascript:light_validate_positive_real("neck")' /></td></tr>
+    <tr><th>Abdomen:</th><td><input id="abdomen" size="5" onblur='javascript:light_validate_positive_real("abdomen")' /></td></tr>
+    <tr id="hip_form"><th>Hip:</th><td><input id="hip" size="5" onblur='javascript:light_validate_positive_real("hip")' /></td></tr>
+    </table>
+  </div>
+
+  <div id="skinfold_method">
+    <p>
+    <strong>Select number of sites:&nbsp;</strong><select id="number_of_sites" onchange="on_change()">
+    <option value="three">Three sites method</option>
+    <option value="seven">Seven sites method</option>
+    </select>
+    </p>
+    <p> All measurements must be in milimeters: </p>
+    <table>
+    <tr><th></th><th>Measurement 1</th><th>Measurement 2</th><th>Measurement 3</th></tr>
+    <tr id="pec_row"><th>Pectoral:</th><td><input id="pec1" size="5" onblur='javascript:light_validate_positive_real("pec1")' /></td><td><input id="pec2" size="5" onblur='javascript:light_validate_positive_real("pec2")' /></td><td><input id="pec3" size="5" onblur='javascript:light_validate_positive_real("pec3")' /></td></tr>
+    <tr id="ab_row"><th>Abdominal:</th><td><input id="ab1" size="5" onblur='javascript:light_validate_positive_real("ab1")' /></td><td><input id="ab2" size="5" onblur='javascript:light_validate_positive_real("ab2")' /></td><td><input id="ab3" size="5" onblur='javascript:light_validate_positive_real("ab3")' /></td></tr>
+    <tr id="th_row"><th>Thigh:</th><td><input id="th1" size="5" onblur='javascript:light_validate_positive_real("th1")' /></td><td><input id="th2" size="5" onblur='javascript:light_validate_positive_real("th2")' /></td><td><input id="th3" size="5" onblur='javascript:light_validate_positive_real("th3")' /></td></tr>
+    <tr id="tri_row"><th>Tricep:</th><td><input id="tri1" size="5" onblur='javascript:light_validate_positive_real("tri1")' /></td><td><input id="tri2" size="5" onblur='javascript:light_validate_positive_real("tri2")' /></td><td><input id="tri3" size="5" onblur='javascript:light_validate_positive_real("tri3")' /></td></tr>
+    <tr id="subs_row"><th>Subscapular:</th><td><input id="subs1" size="5" onblur='javascript:light_validate_positive_real("subs1")' /></td><td><input id="subs2" size="5" onblur='javascript:light_validate_positive_real("subs2")' /></td><td><input id="subs3" size="5" onblur='javascript:light_validate_positive_real("subs3")' /></td></tr>
+    <tr id="sup_row"><th>Suprailiac:</th><td><input id="sup1" size="5" onblur='javascript:light_validate_positive_real("sup1")' /></td><td><input id="sup2" size="5" onblur='javascript:light_validate_positive_real("sup2")' /></td><td><input id="sup3" size="5" onblur='javascript:light_validate_positive_real("sup3")' /></td></tr>
+    <tr id="ax_row"><th>Axilla:</th><td><input id="ax1" size="5" onblur='javascript:light_validate_positive_real("ax1")' /></td><td><input id="ax2" size="5" onblur='javascript:light_validate_positive_real("ax2")' /></td><td><input id="ax3" size="5" onblur='javascript:light_validate_positive_real("ax3")' /></td></tr>
+    <tr><th>Age:</th><td><input id="age" size="5" onblur='javascript:light_validate_integer("age")' /></td></tr>
+    </table>
+  </div>
+
+  <button type="button" onclick="javascript:on_calculate();">Calculate</button>
+</fieldset>
+</div>
+
+<script type="text/javascript">
+
+function on_change()
+{
+  if($("calculator_method").value == "circumferences")
+  {
+    $("skinfold_method").style.display="none";
+    $("help_skinfolds").style.display="none";
+    $("circumferences_method").style.display="";
+    $("help_circumferences").style.display="";
+    setup_circumferences_calculator();
+  }
+  else
+  {
+    $("circumferences_method").style.display="none";
+    $("help_circumferences").style.display="none";
+    $("skinfold_method").style.display="";
+    $("help_skinfolds").style.display="";
+    setup_skinfolds_calculator();
+  }
+}
+function setup_circumferences_calculator()
+{
+  if($("sex").value == "male")
+    $("hip_form").style.display="none";
+  else
+    $("hip_form").style.display="";
+}
+
+function setup_skinfolds_calculator()
+{
+  if($("number_of_sites").value == "seven")
+  {
+    $("pec_row").style.display="";$("ab_row").style.display="";$("th_row").style.display="";$("tri_row").style.display="";$("subs_row").style.display="";$("sup_row").style.display="";$("ax_row").style.display="";
+  }
+  else
+  {
+    if($("sex").value == "male")
+    {
+      $("pec_row").style.display="";$("ab_row").style.display="";$("th_row").style.display="";$("tri_row").style.display="none";$("subs_row").style.display="none";$("sup_row").style.display="none";$("ax_row").style.display="none";
+    }
+    else
+    {
+      $("pec_row").style.display="";$("ab_row").style.display="";$("th_row").style.display="none";$("tri_row").style.display="";$("subs_row").style.display="none";$("sup_row").style.display="none";$("ax_row").style.display="none";
+    }
+  }
+}
+
+function on_calculate()
+{
+  var bf;
+
+  if($("calculator_method").value == "circumferences")
+    bf = calculate_circumferences();
+  else
+    bf = calculate_skinfolds();
+
+  $("bodystat_bodyfat").value=Math.round(bf*100)/100;
+  new Effect.Pulsate($("bodystat_bodyfat"), {duration: 1})
+}
+
+function calculate_circumferences()
+{
+    var bf = 0;
+    var height = new Number($("height").value);
+    var neck = new Number($("neck").value);
+    var abdomen = new Number($("abdomen").value);
+    var hip = new Number($("hip").value);
+
+    if($("sex").value == "male")
+      bf = 495/(1.0324-0.19077*(Math.log(abdomen-neck)*Math.LOG10E)+0.15456*(Math.log(height)*Math.LOG10E))-450;
+    else
+      bf = 495/(1.29579-0.35004*(Math.log(abdomen+hip-neck)*Math.LOG10E)+0.22100*(Math.log(height)*Math.LOG10E))-450;
+
+    return bf;
+}
+
+function calculate_skinfolds()
+{
+    var sum3, sum7, db, bf;
+    var age = $("age").value;
+
+    if($("sex").value == "male" && $("number_of_sites").value == "three")
+    {
+      sum3 = (new Number($("pec1").value)+new Number($("pec2").value)+new Number($("pec3").value)+new Number($("ab1").value)+new Number($("ab2").value)+new Number($("ab3").value)+new Number($("th1").value)+new Number($("th2").value)+new Number($("th3").value))/3;
+      db = 1.10938 - (0.0008267 * sum3) + (0.0000016 *Math.pow(sum3,2)) - (0.0002574 * age);
+    }
+    else if($("sex").value == "male" && $("number_of_sites").value == "seven")
+    {
+      sum7 = (new Number($("pec1").value)+new Number($("pec2").value)+new Number($("pec3").value)+new Number($("ab1").value)+new Number($("ab2").value)+new Number($("ab3").value)+new Number($("th1").value)+new Number($("th2").value)+new Number($("th3").value)+new Number($("tri1").value)+new Number($("tri2").value)+new Number($("tri3").value)+new Number($("subs1").value)+new Number($("subs2").value)+new Number($("subs3").value)+new Number($("sup1").value)+new Number($("sup2").value)+new Number($("sup3").value)+new Number($("ax1").value)+new Number($("ax2").value)+new Number($("ax3").value))/3;
+      db = 1.112 - (0.00043499 * sum7) + (0.00000055 * Math.pow(sum7,2) ) - (0.00028826 * age);
+    }
+    else if($("sex").value == "female" && $("number_of_sites").value == "three")
+    {
+      sum3 = (new Number($("pec1").value)+new Number($("pec2").value)+new Number($("pec3").value)+new Number($("ab1").value)+new Number($("ab2").value)+new Number($("ab3").value)+new Number($("tri1").value)+new Number($("tri2").value)+new Number($("tri3").value))/3;
+      db = 1.0994921 - (0.0009929 * sum3) + (0.0000023 * Math.pow(sum3,2)) - (0.0001392 * age);
+    }
+    else if($("sex").value == "female" && $("number_of_sites").value == "seven")
+    {
+      sum7 = (new Number($("pec1").value)+new Number($("pec2").value)+new Number($("pec3").value)+new Number($("ab1").value)+new Number($("ab2").value)+new Number($("ab3").value)+new Number($("th1").value)+new Number($("th2").value)+new Number($("th3").value)+new Number($("tri1").value)+new Number($("tri2").value)+new Number($("tri3").value)+new Number($("subs1").value)+new Number($("subs2").value)+new Number($("subs3").value)+new Number($("sup1").value)+new Number($("sup2").value)+new Number($("sup3").value)+new Number($("ax1").value)+new Number($("ax2").value)+new Number($("ax3").value))/3;
+      db = 1.097 - (0.00046971 * sum7) + (0.00000056 * Math.pow(sum7,2) ) - (0.00012828 * age);
+    }
+
+     bf = ((4.95/db) - 4.5) * 100;
+
+     return bf;
+}
+</script>

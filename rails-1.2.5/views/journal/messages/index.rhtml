@@ -1,0 +1,20 @@
+<%=button('New message', {:action=>'write'}, 'newmail.gif')%>
+<% if @messages.length > 0 %>
+<%=form_tag :action=>'delete'%>
+<table class="index">
+  <% @messages.each do |m|%>
+  <tr <%=cycle "class='odd'", ""%>>
+    <td><input name=m[<%=m.id%>] type="checkbox" /></td>
+    <td><%=link_to (m.opened ? icon('readmail.gif'):icon('closedmail.gif')), :action=>'read', :id=>m.id%></td>
+    <td><%=short_date(m.sent_at)%></td>
+    <td><%=h m.sender.login%></td>
+    <td class="subject"><%="<strong>" if !m.opened%>
+      <%=link_to h(m.subject.empty?()?'(No subject)':m.subject), :action=>'read', :id=>m.id%>
+      <%="</strong>" if !m.opened%></td>
+  </tr>
+  <%end%>
+</table>
+<%= pagination_links(@pages)%>
+<%=submit_tag "Delete"%>
+<%=end_form_tag%>
+<%end%>

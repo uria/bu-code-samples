@@ -1,0 +1,3 @@
+<select id="session_id" name="session[id]" onchange="javascript:on_change_session();">
+<%=options_from_collection_for_select(@program.program_sessions, "id", "name")%>
+</select>

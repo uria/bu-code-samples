@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title>Training Connection - <%=@content_for_title || controller.action_name.capitalize %></title>
+  <meta name="description" content="Put your training log online for free. Analyze your progress with charts. Export your programs and log to pdf or excel. Ideal for powerlifters, bodybuilders, coaches and trainees." />
+  <meta name="keywords" content="training, log, diary, sport, powerlifting, lifting, bodybuilding, free, strength, bodyweight, bodyfat, bodycomp" />
+  <%= stylesheet_link_tag 'general5' %>
+  <%= stylesheet_link_tag 'rails' %>
+  <%= stylesheet_link_tag 'public' %>
+  <%= @content_for_stylesheets-%>
+
+  <%= javascript_include_tag "prototype" %>
+  <%= @content_for_javascripts%>
+</head>
+<body class="entrance">
+<div id="page">
+  <%= render(:partial => "shared/header") %>
+  <div id="wrapper">
+  <%= render(:partial => "shared/notices") %>
+  <div id="entrance_content">
+    <%= @content_for_layout%>
+  </div>
+  <div id="footer">
+    <%= render(:partial => "shared/copyright") %>
+  </div>
+  </div>
+</div>
+  <%= render(:partial => "shared/tracker_code") %>
+</body>
+</html>

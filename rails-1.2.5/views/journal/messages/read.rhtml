@@ -1,0 +1,4 @@
+<p><strong>Subject:</strong> <%=h @message.subject%></p>
+<p><strong>From:</strong> <%=@message.sender.login%></p>
+<div><%=auto_link (simple_format( h(@message.content)))%></div>
+<%=button('Reply', {:action => 'reply', :id => @message.id}, 'replymail.gif')%>

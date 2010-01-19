@@ -1,0 +1,18 @@
+<table>
+    <tr><th>When</th><th>User</th><th>Title</th></tr>
+    <%@workouts.each do |w|%>
+        <tr class="<%=cycle 'odd', 'even'%>">
+        <td><%=w.since%></td>
+        <td><%=w.training_session.user.login%></td>
+        <td><%=w.training_session.title%></td>
+        <td><%=link_to 'Edit', :action => :edit, :id => w%></td>
+        <td><%=link_to 'Delete', {:action => :delete, :id => w}, :confirm => "Are you sure?", :post => true%></td>
+        </tr>
+    <%end%>
+</table>
+<%=pagination_links_remote(@pages, {:window_size => 3},
+    :url => {:action => :index},
+    :update => { :success => "workouts_table"},
+    :before   => %(Element.show('spinner')),
+    :success  => %(Element.hide('spinner')))%>
+<img id="spinner" src='/images/activity.gif' style='display:none' alt='Processing...'/>

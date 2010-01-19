@@ -1,0 +1,22 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+
+\oddsidemargin -0.2in
+\textwidth 6.5in
+
+\headheight 0.0in
+\headsep 0.0in
+\topmargin 0in
+\textheight 9.5in
+
+\begin{document}
+\begin{center}
+  \begin{tabular}{| c | r | r |}
+    \hline
+    Measured on & Bodyweight & \%Bodyfat \\ \hline
+    <%@stats.each do |s| %>
+      <%=s.measured_on%> & <%=weight_with_units(s.bodyweight)%> & <%=(s.bodyfat.nil?()?"-":s.bodyfat.to_s+'\%')%> \\ \hline
+    <%end%>
+  \end{tabular}
+\end{center}
+\end{document}

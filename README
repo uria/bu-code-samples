@@ -1,0 +1,17 @@
+.
+|-- c
+|   |-- bukbd                           Linux kernel patch. Combinations of letter keys simulate special keys.
+|   `-- vowel-teacher                   Sound analyser that teaches the pronunciation of the 11 pure vowels of English. (Work in progress)
+|-- common-lisp                         Some Common Lisp code from my degree's final dissertation.
+|-- css                                 css files from http://community.staleytraining.com
+|-- javascript
+|   |-- phonemic-transcriber            A website that enables users to surf the web substituting words for its phonemic transcription.
+                                        Online demo at http://transcriber.benignouria.com (Work in progress)
+|   `-- svg-charts                      Code for the SVG dynamic charts in http://community.staleytraining.com
+|-- rails-1.2.5                         Code for parts of http://community.staleytraining.com
+|-- rails-2.3.5                         Code for parts of a voucher listing website. (Work in progress)
+`-- ruby
+    |-- proxies-ripper                  A screen scraper that reads public proxies listings from the web and stores them in a DB. (Mechanize + Sequel)
+    |-- translator                      A screen scraper that translates strings using a website.
+    `-- vowel-teacher-prototype         A prototype for the vowel teacher that is currently being developed in C (uses GTK, threads, processes...)
+

@@ -1,0 +1,4 @@
+Measured on,Bodyweight,Bodyfat
+<%@stats.each do |s| -%>
+<%=s.measured_on.to_formatted_s.gsub('"', '""')-%>,<%=weight_with_units(s.bodyweight)-%>,<%=(s.bodyfat.nil?()?"-":s.bodyfat.to_s+"%")%>
+<%end-%>

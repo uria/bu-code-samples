@@ -1,0 +1,4 @@
+<%= form_tag({:action => 'delete_comment', :id => @comment.commentable_id, :comment_id => @comment.id})%>
+  Are you sure?<br />
+  <%=submit_tag 'DELETE' %><%=link_to 'Cancel', {:action => 'show', :id => @comment.commentable_id}%>
+<%= end_form_tag %>

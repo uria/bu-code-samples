@@ -1,0 +1,30 @@
+<%content_for 'javascripts' do%>
+    <%= javascript_include_tag 'program_form4' %>
+    <%= javascript_include_tag 'validation' %>
+    <%= javascript_include_tag 'unit_conversion3' %>
+    <%= javascript_include_tag 'exauto' %>
+    <script src='<%=url_for(:controller => 'exercises', :action => 'my_exercises')%>' type='text/javascript'></script>
+<%end%>
+
+<%= requieres_javascript%>
+<%@title = "New program"%>
+<%@programs_form = true%>
+<div id="errors_div" class="ErrorExplanation"></div>
+<%=form_tag(url, {:autocomplete => 'off', :onSubmit=>"javascript:return false;"})%>
+<p>Program title:<%=text_field 'prog', 'title', {:size => 45, :maxlength =>64, :onblur =>"javascript:light_validate_not_blank('prog_title')"}%>
+Tags:<%=text_field_tag 'tags' ,@prog.tag_names.join(' '), {:size => 32}%>
+<span id="private-check"><%=check_box 'prog', 'private'%><label for="prog_private">Private entry</label></span></p>
+<div id="program_sessions">
+</div>
+
+<p><button type="button" id='new_session' onclick="on_new_session();">ADD NEW SESSION</button></p>
+
+<div class='auto_complete' id='exercise_name_auto_complete'>
+</div>
+
+<p>Program comments:<br /><%=text_area 'prog', 'comments', {:cols => 80, :rows => 5}%></p>
+<button type="button" id ='finish' onclick="javascript:on_finish('<%=url_for(url)%>');">FINISH</button>
+<%= end_form_tag%>
+
+<script type="text/javascript">
+</script>

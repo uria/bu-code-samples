@@ -1,0 +1,6 @@
+<% @websites.each do |w| -%>
+  <% content_tag_for(:div, w) do -%>
+    <p><%=link_to w.url, website_vouchers_url(w) %></p>
+    <p><%=w.vouchers.count %> vouchers</p>
+  <% end  -%>
+<% end  -%>

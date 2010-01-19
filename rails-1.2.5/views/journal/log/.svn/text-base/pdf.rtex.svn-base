@@ -1,0 +1,15 @@
+\documentclass[12pt]{article}
+\usepackage{multirow}
+
+\pagestyle{empty}
+
+\oddsidemargin -0.2in
+\textwidth 6.5in
+
+\headheight 0.0in
+\headsep 0.0in
+\topmargin 0in
+\textheight 9.5in
+\begin{document}
+  <%=render :partial => 'pdf_session', :collection => @ses%>
+\end{document}

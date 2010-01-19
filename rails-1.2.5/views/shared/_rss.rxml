@@ -1,0 +1,22 @@
+xml.instruct!
+
+xml.rss(:version => "2.0") do
+  xml.channel do
+    xml.title(rss.title)
+    xml.link(rss.link)
+    xml.description(rss.description)
+    xml.pubDate(CGI.rfc1123_date(rss.pubDate)) if !rss.pubDate.nil?
+    xml.lastBuildDate(CGI.rfc1123_date(rss.lastBuildDate))  if !rss.lastBuildDate.nil?
+    xml.language(rss.language) if !rss.language.nil?
+
+    rss.items.each do |i|
+      xml.item do
+        xml.guid(i.guid, :isPermaLink => "true") if !i.guid.nil?
+        xml.title(i.title) if !i.title.nil?
+        xml.link(i.link) if !i.link.nil?
+        xml.description(i.description) if !i.description.nil?
+        xml.pubDate(CGI.rfc1123_date(i.pubDate)) if !i.pubDate.nil?
+      end
+    end
+  end
+end

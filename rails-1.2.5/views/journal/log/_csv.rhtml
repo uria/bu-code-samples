@@ -1,0 +1,7 @@
+<%=csv.done_on.to_formatted_s.gsub('"', '""')-%>,"<%=csv.title.gsub('"', '""')-%>"
+
+Exercise,Sets,Reps,Weight,Intensity
+<% csv.training_sets.each do |set| -%>
+"<%=set.exercise.name.gsub('"', '""')-%>",<%=sprintf("%d,%d,%s,%.1f%%", set.sets, set.reps, weight_with_units(set.weight,1), set.intensity*100)%>
+<% end-%>
+<%=csv.comments.gsub('"', '""')%>

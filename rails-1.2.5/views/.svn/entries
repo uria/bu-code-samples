@@ -1,0 +1,49 @@
+8
+
+dir
+5
+svn://svn.lifterlog.com/training-connection/trunk/app/views
+svn://svn.lifterlog.com/training-connection
+
+
+
+2007-05-12T00:07:33.350470Z
+1
+beni
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c130efeb-51e3-4f42-ab0e-e41d2ce7fd77
+
+entrance
+dir
+
+layouts
+dir
+
+community
+dir
+
+shared
+dir
+
+admin
+dir
+
+journal
+dir
+
+account
+dir
+

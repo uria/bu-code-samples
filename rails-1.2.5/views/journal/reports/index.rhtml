@@ -1,0 +1,130 @@
+<%content_for 'javascripts' do%>
+  <%= javascript_include_tag 'reports5' %>
+  <%= javascript_include_tag 'charts3/svg' %>
+  <%= javascript_include_tag 'charts3/axis' %>
+  <%= javascript_include_tag 'charts3/dataseries' %>
+  <%= javascript_include_tag 'charts3/charts' %>
+<%end%>
+
+<%=requieres_javascript%>
+<%=javascript_preferred_units%>
+
+<p>
+Period:
+<select name="period" id="period">
+<option value="3">Last 3 months</option>
+<option value="6">Last 6 months</option>
+<option value="12" selected="selected">Last 12 months</option>
+</select>
+</p>
+
+<div class="report_form">
+<div class="report_toggle" onclick="Effect.toggle('vi_options', 'blind'); return true;">Options</div>
+<input id="vi_check" type="checkbox" /><label for="vi_check">Volume &amp; Intensity</label>
+  <div class="report_options" id="vi_options" style="display:none">
+    <p>
+      Aggregate data:
+      <select id="vi_aggregation">
+      <option value="DAY">Daily</option>
+      <option value="WEEK"  selected="selected">Weekly</option>
+      <option value="MONTH">Monthly</option>
+      </select><br />
+      Volume measure
+      <select id="vi_measure">
+      <option value="LOAD">Load</option>
+      <option value="NOL" selected="selected">Number of lifts</option>
+      </select><br />
+      <input id="vi_intensity_avg" checked="true" type="checkbox" /><label for="vi_intensity_avg">Intensity Average</label><br />
+      <input id="vi_intensity_max" checked="true" type="checkbox" /><label for="vi_intensity_max">Intensity Maximum</label>
+    </p>
+  </div>
+</div>
+
+<div class="report_form">
+<div class="report_toggle" onclick="Effect.toggle('is_options', 'blind'); return true;">Options</div>
+<input id="is_check" type="checkbox" /><label for="is_check">Intensity Stack</label>
+  <div class="report_options" id="is_options" style="display:none">
+    <p>
+      Aggregate data:
+      <select id="is_aggregation">
+      <option value="DAY">Daily</option>
+      <option value="WEEK"  selected="selected">Weekly</option>
+      <option value="MONTH">Monthly</option>
+      </select><br />
+      Volume measure
+      <select id="is_measure">
+      <option value="LOAD">Load</option>
+      <option value="NOL" selected="selected">Number of lifts</option>
+      </select>
+    </p>
+  </div>
+</div>
+
+
+<div class="report_form">
+<div class="report_toggle" onclick="Effect.toggle('bs_options', 'blind'); return true;">Options</div>
+<input id="bs_check" type="checkbox" /><label for="bs_check">Body Stats.</label>
+  <div class="report_options" id="bs_options" style="display:none">
+    <p>
+      <input id="bs_bf_percentage" checked="true" type="checkbox" /><label for="bs_bf_percentage">Bodyfat percentage</label><br />
+      <input id="bs_lbm" checked="true" type="checkbox" /><label for="bs_lbm">Lean body mass</label>
+    </p>
+  </div>
+</div>
+
+<button onclick="javascript:onShow();">Plot</button>
+
+<div id="charts">
+<!--[if IE]>
+    <embed name="vi_chart" id="vi_chart" src="/svg/chart.svg" align="middle" width="720px" height="0px"></embed>
+  <![endif]-->
+  <![if !IE]>
+    <object name="vi_chart" id="vi_chart" data="/svg/chart.svg" type="image/svg+xml" width="720px" height="0px">
+      Please download <a href="http://www.mozilla.com/firefox/">Firefox 1.5</a>.
+    </object>
+  <![endif]>
+  <!--[if IE]>
+    <embed name="is_chart" id="is_chart" src="/svg/chart.svg" align="middle" width="720px" height="0px"></embed>
+  <![endif]-->
+  <![if !IE]>
+    <object name="is_chart" id="is_chart" data="/svg/chart.svg" type="image/svg+xml" width="720px" height="0px">
+      Please download <a href="http://www.mozilla.com/firefox/">Firefox 1.5</a>.
+    </object>
+  <![endif]>
+  <!--[if IE]>
+    <embed name="bs_chart" id="bs_chart" src="/svg/chart.svg" align="middle" width="720px" height="0px"></embed>
+  <![endif]-->
+  <![if !IE]>
+    <object name="bs_chart" id="bs_chart" data="/svg/chart.svg" type="image/svg+xml" width="720px" height="0px">
+      Please download <a href="http://www.mozilla.com/firefox/">Firefox 1.5</a>.
+    </object>
+  <![endif]>
+</div>
+
+<script type="text/javascript">
+var hasSVGSupport = false;
+var useVBMethod = false;
+if (navigator.mimeTypes != null && navigator.mimeTypes.length > 0)
+{
+    if (navigator.mimeTypes["image/svg+xml"] != null)
+    {
+        hasSVGSupport = true;
+    }
+}
+else
+{
+    useVBMethod = true;
+}
+</script>
+<script type="text/vbscript">
+On Error Resume Next
+If useVBMethod = true Then
+    hasSVGSupport = IsObject(CreateObject("Adobe.SVGCtl"))
+End If
+</script>
+<script type="text/javascript">
+  if(!hasSVGSupport)
+  {
+    new Insertion.Top("content", "<div class='error'><p>SVG required to plot charts. <a href='http://www.adobe.com/svg/viewer/install/main.html'>Please install Adobe plugin.</a></p></div>")
+  }
+</script>

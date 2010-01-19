@@ -1,0 +1,8 @@
+<% cache do %>
+<h2>Last photos</h2>
+<%= render :partial => '/shared/tag_cloud', :object => @cloud_tags %>
+<table class="index">
+<%=render :partial => 'photo', :collection => @photos %>
+</table>
+<%= pagination_links_with_tags(@pages)%>
+<% end %>

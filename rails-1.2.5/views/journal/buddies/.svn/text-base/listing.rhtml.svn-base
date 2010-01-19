@@ -1,0 +1,15 @@
+<% if @buddies.length > 0 %>
+<table class="index">
+  <% @buddies.each do |b|%>
+  <tr <%=cycle(" class='odd'", "")%>>
+  <td class="buddy-title"><%=link_to b.login, {:controller => 'log', :action => 'index', :log_name => b.login}%></td>
+  <%if @buttons %>
+  <td class="edit_options">
+    <%= link_to('delete', {:action => 'delete', :name=> b.login}, :confirm => "Are you sure you want to remove #{b.login} from your buddies?", :post => true)%>
+  </td>
+  <%end %>
+  </tr>
+  <%end%>
+</table>
+<%= pagination_links(@pages)%>
+<%end%>

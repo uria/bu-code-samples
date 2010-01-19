@@ -1,0 +1,6 @@
+<% if @tag %>
+ <h3>Programs tagged <%=@tag %></h3>
+<% end %>
+<%= render :partial => '/shared/tag_cloud', :object => @cloud_tags, :locals => { :title => "Related tags" }   %>
+<%= render :partial => 'programs', :object => @progs%>
+<%= pagination_links_with_tags(@pages)%>

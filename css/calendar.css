@@ -1,0 +1,43 @@
+#calendar{
+  font-family: arial;
+  font-size : 8pt;
+  margin: 0 auto 20px auto;
+  padding: 2px;
+  border: 1px solid #BBBBBB;
+  text-align: center;
+  /*border-collapse: collapse;*/
+}
+
+#calendar #decYear, #calendar #incYear, #calendar #decMonth, #calendar #incMonth{
+  cursor: pointer;
+}
+
+#calendar td{
+  width : 20px;
+  height : 12px;
+  line-height: 12px;
+  font-size : 8pt;
+}
+
+#calendar #weekDays th{
+/*  font-size: 80%;*/
+  font-weight: normal;
+}
+
+#calendar a{
+  display : block;
+  text-decoration: none;
+}
+
+#calendar a:hover{
+  background-color : #FFF8F2;
+  text-decoration : underline;
+}
+
+#calendar-container {
+    float : right;
+    clear : right;
+    width : 150px;
+}
+
+#calendar a#today { /*border-botton: 1px solid blue*/ background-color: #EEEEFF}

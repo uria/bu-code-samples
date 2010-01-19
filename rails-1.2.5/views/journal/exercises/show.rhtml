@@ -1,0 +1,9 @@
+<p>Exercise name: <strong><%=@exercise.name%></strong></p>
+<p>Tags: <%=show_tags(@exercise.tag_names)%></p>
+<p>Description:</p>
+<p><%=@exercise.description%></p>
+<%if @buttons%>
+  <div class="button_container">
+    <%=link_to('Edit', {:action=>'edit', :id=>@exercise.id}, {:class => 'button'})%>
+  </div>
+<%end%>

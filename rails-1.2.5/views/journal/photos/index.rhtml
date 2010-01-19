@@ -1,0 +1,32 @@
+<%= requieres_javascript if @buttons%>
+
+<%= render :partial => '/shared/tag_cloud', :object => @cloud_tags %>
+
+<% if @photos.length > 0 %>
+<table class="index">
+  <% @photos.each do |p|%>
+  <tr <%=cycle(" class='odd'", "")%>>
+  <% @p = p %>
+  <td class='photo'><%= link_to(image_tag(url_for_file_column('p', 'image', "thumb")), :action => 'show', :id=> p.id) %></td>
+  <td class='photo-title'>
+    <%=private_icon p.private%>
+    <%=link_to(h(p.title), :action => 'show', :id=> p.id)%>
+    <%=comments_count(p)%>
+    <%=show_tags(p.tag_names,{:action => 'search'})%><br />
+    <span class="info">Date:<%= p.taken_on %></span>
+  </td>
+  <%  if @buttons %>
+  <td class="edit_options">
+    <%= link_to('edit', :action => 'edit', :id=> p.id)%> |
+    <%= link_to('delete', {:action => 'delete', :id=> p.id}, :confirm => 'Are you sure you want to delete this photo?', :post => true)%>
+  </td>
+  <% end %>
+  </tr>
+  <%end%>
+</table>
+<%= pagination_links(@pages)%>
+<%end%>
+
+<div class="button_container">
+  <%=button('New Photo', {:action => "new"}, 'new.gif') if @buttons %>
+</div>

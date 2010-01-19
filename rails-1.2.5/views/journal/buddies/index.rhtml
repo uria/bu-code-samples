@@ -1,0 +1,26 @@
+<%content_for 'autodiscovery' do%>
+  <%= auto_discovery_link_tag(:rss, {:action => 'rss'}, {:title => 'Buddies RSS'})%>
+<%end%>
+<p>
+<%=link_to '<img class="buddies_feed" src="/images/feedicon24.gif" height="24" width="24" alt="Buddies RSS feed"/>', :action => 'rss' %>
+<%=link_to '<span class="buddies_feed">Aggregated RSS feed with all buddies training logs</span>', :action => 'rss' %>
+</p>
+
+<table class="index">
+<%@sessions.each do |s| %>
+<tr <%=cycle(" class='odd'", "")%>>
+<td class="title"><%=link_to s.title, {:controller =>'/journal/log', :action=>'show', :log_name=>s.user.login, :id=>s.id} %> <%=comments_count(s)%><br />
+<span class="info">
+Logged by <%=link_to s.user.login, {:controller =>'/journal/log', :action=>'index', :log_name=>s.user.login}%> <%=distance_of_time_in_words_to_now(s.updated_at)%> ago
+</span>
+</td>
+</tr>
+<% end %>
+</table>
+
+<p>
+<div class="button_container">
+  <%= button('Buddies', {:action => 'listing'}, 'buddies.gif')%>
+</div>
+
+</p>

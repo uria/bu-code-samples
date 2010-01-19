@@ -1,0 +1,13 @@
+<p>Dear <%=@login%>,</p>
+
+<p>
+Your trial account at <a href="http://community.staleytraining.com">Charles Staley's Training Connection</a> will expire today. Remember, you can buy a membership at <a href="http://community.staleytraining.com/account/purchase">Charles Staley's store</a> for just $14.97 per month.
+</p>
+
+<p>
+Thank you.
+</p>
+
+<p>
+The Training Connection team.
+</p>

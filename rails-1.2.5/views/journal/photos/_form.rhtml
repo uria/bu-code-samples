@@ -1,0 +1,12 @@
+<p><label for="photo_title">Title:</label><br /><%= text_field('photo', 'title') %>
+<span id="private-check"><%=check_box 'photo', 'private'%><label for="photo_private">Private entry</label></span></p>
+<p><label for="tags">Tags:</label><br /><%=text_field_tag 'tags' ,@photo.tag_names.join(' '), {:size => 32}%></p>
+<p>Date:<br /><%= date_select('photo', 'taken_on') %></p>
+<p><label for="photo_image">Image:</label><br />
+<%unless @photo.image.nil?  %>
+<%=image_tag(url_for_file_column('photo', 'image', "thumb")) %><br />
+<%end %>
+<%= file_column_field('photo', 'image')%>
+</p>
+<p><label for="photo_comment">Comment:</label><br /><%= text_area('photo', 'comment', {:cols => 66, :rows => 8})%></p>
+<p><%=submit_tag 'SAVE'%></p>

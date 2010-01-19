@@ -1,0 +1,37 @@
+<% cache(:action => "index", :part => "wotw") do %>
+    <%unless @wotw.nil?%>
+    <div id="wotw">
+        <h2>Charles' Pick of the Week</h2>
+        <img src="/images/charles_bw.jpg" alt="Charles" width="90" height="120" />
+        <p>
+        <strong><%=link_to @wotw.training_session.title, {:controller =>'/journal/log', :action=>'show', :log_name=>@wotw.training_session.user.login, :id=>@wotw.training_session} %></strong>
+        by <%=link_to @wotw.training_session.user.login, {:controller =>'/journal/log', :action=>'index', :log_name=>@wotw.training_session.user.login}%>
+        </p>
+        <div id="charles-comments">
+        <%=simple_format(h(@wotw.comments))%>
+        </div>
+    </div>
+    <%end%>
+<%end%>
+
+<% cache(:action => "index", :part => "last_entries") do %>
+    <h2 style="clear:both">Last journal entries</h2>
+
+    <%= render :partial => '/shared/tag_cloud', :object => @cloud_tags %>
+
+    <table class="index">
+    <%@users.each do |s| %>
+      <tr <%=cycle(" class='odd'", "")%>>
+      <td class='title'><%=link_to s.title, {:controller =>'/journal/log', :action=>'show', :log_name=>s.user.login, :id=>s.id} %>
+          <%=comments_count(s)%><br />
+          <span class="info">
+          Logged by <%=link_to s.user.login, {:controller =>'/journal/log', :action=>'index', :log_name=>s.user.login}%>
+          <!--<%=distance_of_time_in_words_to_now(s.updated_at)%> ago-->
+          <%=s.updated_at.strftime("on %B %d, %Y")%>
+          </span>
+      </td>
+      </tr>
+    <% end %>
+    </table>
+    <%= pagination_links_with_tags(@pages)%>
+<% end %>

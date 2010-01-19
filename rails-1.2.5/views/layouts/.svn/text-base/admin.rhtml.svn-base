@@ -1,0 +1,35 @@
+<html>
+<head>
+    <%=stylesheet_link_tag "admin"%>
+    <%= @content_for_stylesheets-%>
+
+    <%= javascript_include_tag "prototype" %>
+    <%= javascript_include_tag "controls_modified" %>
+    <%= javascript_include_tag "effects" %>
+    <%= javascript_include_tag "dragdrop" %>
+
+    <%= @content_for_javascripts%>
+</head>
+
+<body <%= @content_for_onload%>>
+    <div id="header">
+        Training Connection Admin Console
+    </div>
+    <div id="menu">
+        <ul>
+            <li>Users
+                <ul>
+                    <li><a href="/admin/users/">Change status</a></li>
+                    <li><a href="/admin/payments/">Payments</a></li>
+                    <li><a href="/admin/users_stats/">Statistics</a></li>
+                </ul>
+            </li>
+            <li><a href="/admin/">General Statistics</a></li>
+            <li><a href="/admin/highlighted/">Highlighted workouts</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <%=@content_for_layout%>
+    </div>
+</body>
+</html>

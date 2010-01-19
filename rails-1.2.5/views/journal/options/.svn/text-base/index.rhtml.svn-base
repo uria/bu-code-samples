@@ -1,0 +1,6 @@
+<ul>
+<li><%=link_to "Change avatar", :action => :avatar%></li>
+<li><%=link_to "Change default weight units", :action => :units%></li>
+<li><%=link_to "Change privacy defaults", :action => :privacy%></li>
+<li><%=link_to "Change password", :action => :password%></li>
+</ul>

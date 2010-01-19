@@ -1,0 +1,108 @@
+<%content_for 'javascripts' do%>
+  <%= javascript_include_tag 'reports5' %>
+  <%= javascript_include_tag 'charts3/svg' %>
+  <%= javascript_include_tag 'charts3/axis' %>
+  <%= javascript_include_tag 'charts3/dataseries' %>
+  <%= javascript_include_tag 'charts3/charts' %>
+<%end%>
+
+<%content_for 'onload' do%>
+    onLoad="javascript:plot_sign_ups()"
+<%end%>
+
+<table>
+<% @res.each do |k|%>
+<tr class="<%=cycle 'odd', 'even'%>">
+    <td><%=humanize_kind k[0]%></td>
+    <td><%=k[1]%></td>
+</tr>
+<% end %>
+</table>
+
+<p>
+<!--[if IE]>
+  <embed name="users_chart" id="users_chart" src="/svg/chart.svg" align="middle" width="720px" height="580px"></embed>
+<![endif]-->
+<![if !IE]>
+<object name="users_chart" id="users_chart" data="/svg/chart.svg" type="image/svg+xml" width="720px" height="580px">
+  Please download <a href="http://www.mozilla.com/firefox/">Firefox 1.5</a>.
+</object>
+<![endif]>
+</p>
+
+<script type='text/javascript'>
+function plot_sign_ups()
+{
+    var data = [<%=@graph.collect{|x| sprintf("new Date(%d), %d", Time.parse(x[0]).to_i*1000, x[1]) }.join(',')%>];
+
+    var users = [];
+    var users10d = [];
+
+    var sum,i;
+
+    for(i=0;i<data.length;i+=2)
+    {
+    /*
+        alert(data[i].getTime());
+        if(i==2) alert(users[users.length-2].getTime());
+    */
+        if(i!=0 && data[i].getTime() > users[users.length-2].getTime()+24*3600*1000)
+        {
+            do{
+                users.push(new Date(users[users.length-2].getTime()+24*3600*1000));
+                users.push(0);
+            }while(data[i].getTime() > users[users.length-2].getTime()+24*3600*1000);
+        }
+        users.push(data[i]);
+        users.push(data[i+1]);
+    }
+
+    sum = 0;
+    for(i=0;i<users.length;i+=2)
+    {
+        sum += users[i+1];
+        if(i>=20)
+        {
+            users10d.push(users[i]);
+            users10d.push(sum/10);
+            sum -= users[i-19];
+        }
+    }
+
+    var chart = new Chart("users_chart");
+    chart.setXAxis(new XTimeAxis(users[0], users[users.length-2], "months", "weeks", "Time"));
+    chart.autoYAxisTitle = "Sign-ups";
+    chart.autoYAxisDisplayMajor = "guides";
+    chart.yDataSeries["users"] = new AreaDataSeries("Users", users, "green", false);
+    chart.yDataSeries["users10d"] = new LineDataSeries("10 days moving average", users10d, "red", false);
+    chart.display();
+}
+</script>
+
+<script type="text/javascript">
+var hasSVGSupport = false;
+var useVBMethod = false;
+if (navigator.mimeTypes != null && navigator.mimeTypes.length > 0)
+{
+    if (navigator.mimeTypes["image/svg+xml"] != null)
+    {
+        hasSVGSupport = true;
+    }
+}
+else
+{
+    useVBMethod = true;
+}
+</script>
+<script type="text/vbscript">
+On Error Resume Next
+If useVBMethod = true Then
+    hasSVGSupport = IsObject(CreateObject("Adobe.SVGCtl"))
+End If
+</script>
+<script type="text/javascript">
+  if(!hasSVGSupport)
+  {
+    new Insertion.Top("content", "<div class='error'><p>SVG required to plot charts. <a href='http://www.adobe.com/svg/viewer/install/main.html'>Please install Adobe plugin.</a></p></div>")
+  }
+</script>

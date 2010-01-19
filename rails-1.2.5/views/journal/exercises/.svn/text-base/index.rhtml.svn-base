@@ -1,0 +1,17 @@
+<% if @exercises.length > 0 %>
+<table class="index">
+  <% @exercises.each do |e|%>
+  <tr class="<%= cycle("odd", "") %>">
+  <td><%=link_to e.name, :action => 'show', :id => e.id%><%=show_tags(e.tag_names)%></td>
+  <td class="edit_options"><%= link_to('edit', :action => 'edit', :id=> e.id)%></td>
+  </tr>
+  <%end%>
+</table>
+<%=pagination_links_with_tags @pages%>
+<%end%>
+
+<%if @buttons%>
+  <div class="button_container">
+    <%= link_to ('Merge 2 exercises', {:action => 'merge'}, {:class => 'button'}) if @buttons%>
+  </div>
+<%end%>

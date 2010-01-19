@@ -1,0 +1,11 @@
+<h2>Thank you!</h2>
+<strong>Your subscription to Charles Staley's Training Connection was successful.</strong>
+
+<ul>
+<%if current_user%>
+    <li><%=link_to "Your journal", :log_name => current_user.login , :controller => '/journal/log', :action => 'index'%></li>
+<%else%>
+    <li><%=link_to "Login", :action => 'login'%></li>
+<%end%>
+    <li><%=link_to "Community", :controller => '/community/logs', :action => 'index' %>
+</ul>

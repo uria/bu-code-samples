@@ -1,0 +1,4 @@
+({LOAD: [ <%=@res.collect { |x| sprintf("[%d, %.3f]",  Time.parse(x['t']).to_i*1000, x['volume']) }.join(',')%> ],
+NOL: [ <%=@res.collect { |x| sprintf("[%d, %d]",  Time.parse(x['t']).to_i*1000, x['NOL'])}.join(',')%> ],
+MAX_INT: [ <%=@res.collect { |x| sprintf("[%d, %.2f]",  Time.parse(x['t']).to_i*1000, x['max_int']) }.join(',')%> ],
+AVG_INT: [ <%=@res.collect { |x| sprintf("[%d, %.2f]",  Time.parse(x['t']).to_i*1000, x['avg_int']) }.join(',')%> ]})

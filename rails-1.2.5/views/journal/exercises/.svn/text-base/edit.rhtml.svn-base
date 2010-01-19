@@ -1,0 +1,13 @@
+<%=form_tag%>
+<%= error_messages_for 'exercise' %>
+<p>
+<label for='exercise_name'>Exercise name:</label><%=text_field 'exercise', 'name'%>
+</p>
+<p>
+<label for='tags'>Tags:</label><%= text_field_tag('tags', @exercise.tag_names.join(' ')) %>
+</p>
+<p>
+<label for='exercise_description'>Description:<br /><%=text_area 'exercise', 'description', "cols" => 60, "rows" => 20%></label>
+</p>
+<%=submit_tag 'Save'%>
+<%=end_form_tag%>

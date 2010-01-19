@@ -1,0 +1,2 @@
+exercise_names_list = [<%=@exercises.map{|x| "'"+escape_javascript(x.name)+"'" }.join(',') %>];
+exercise_ids_list = [<%=@exercises.map{|x| x.id}.join(',') %>];

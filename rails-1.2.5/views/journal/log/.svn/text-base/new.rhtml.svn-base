@@ -1,0 +1,52 @@
+<%content_for 'javascripts' do%>
+  <%= javascript_include_tag 'session_form3' %>
+  <%= javascript_include_tag 'validation' %>
+  <%= javascript_include_tag 'unit_conversion3' %>
+  <%= javascript_include_tag 'exauto' %>
+  <script src='<%=url_for(:controller => 'exercises', :action => 'my_exercises')%>' type='text/javascript'></script>
+<%end%>
+
+<%=requieres_javascript%>
+<%=javascript_preferred_units%>
+
+<%@title = "New session"%>
+<%@sessions_form = true%>
+<div id="errors_div" class="ErrorExplanation"></div>
+<%=form_tag({}, {:autocomplete => 'off', :onSubmit=>"javascript:return false;"})%>
+<p>Date: <br /><%=date_select 'ses', 'done_on'%>
+<span id="private-check"><%=check_box 'ses', 'private'%><label for="ses_private">Private entry</label></span></p>
+<p>Program:<br />
+<%= select(:program, :id, @programs, {}, {:onchange =>"javascript:on_change_program();"})%>
+<span id="select_session_container">
+</span>
+<img id="loading_pic" src='/images/activity.gif' style='display:none' alt='Processing...'/>
+</p>
+<p>Title: <br /><%=text_field 'ses', 'title', {:size => 64, :maxlength =>64, :onblur =>"javascript:light_validate_not_blank('ses_title')"}%></p>
+
+<div id="form_header">
+  <div id="exercise_header">Exercise</div>
+  <div id="sets_header">Sets</div>
+  <div id="reps_header">Reps</div>
+  <div id="weight_header">Weight</div>
+  <div id="intensity_header">Intensity</div>
+  <div id="onerm_header">1RM</div>
+</div>
+
+<ul class="exercises_form" id="session_exercises">
+</ul>
+
+<div class='auto_complete' id='exercise_name_auto_complete'></div>
+<div id="exercises_form_footer">
+<p class="tip">Tip: You can double click on intensities and 1RMs to set them manually.</p>
+<img src="/images/addexercises.png" class="clickable" alt="Add exercise" width="80" height="16" onclick="javascript:new_exercise();"  />
+</div>
+
+<p>Comments:<br /><%=text_area 'ses', 'comments', {:cols => 70, :rows => 7 }%></p>
+
+<%= end_form_tag%>
+
+<button type="button" onclick="javascript:on_save();">SAVE</button>
+
+<script type="text/javascript">
+on_change_program();
+</script>

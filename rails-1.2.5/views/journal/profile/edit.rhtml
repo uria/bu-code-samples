@@ -1,0 +1,21 @@
+<%=form_tag%>
+<%=error_messages_for 'profile'%>
+<table class="profile">
+<thead>
+<tr><td></td><td><h2><%=@user.login%></h2></td></tr>
+</thead>
+<tbody>
+<tr class="odd"><th scope="row"><label for="tags">Tags:</label></th><td><%=text_field_tag 'tags', @tags, {:size => 50}%></td></tr>
+<tr><th scope="row"><label for="profile_name">First name:</label></th><td><%=text_field 'profile', 'name'%></td></tr>
+<tr class="odd"><th scope="row"><label for="profile_last_name">Last name:</label></th><td><%=text_field 'profile', 'last_name'%></td></tr>
+<tr><th scope="row"><label for="profile_residence">Residence:</label></th><td><%=country_select 'profile', 'residence', ['United States'], {:include_blank => true}%></td></tr>
+<tr class="odd"><th scope="row"><label>Birthday:</label></th><td><%=date_select 'profile','born_on', :start_year=>1930, :end_year=>Time.now.year, :include_blank => true%></td></tr>
+<tr><th scope="row"><label for="profile_gender">Gender:</label></th><td><%=select 'profile', 'gender', [['Male','Male' ],['Female', 'Female']]%></td></tr>
+<tr class="odd"><th scope="row"><label for="profile_occupation">Occupation:</label></th><td><%=text_field 'profile', 'occupation'%></td></tr>
+<tr><th scope="row"><label for="profile_personal_website">Personal website:</label></th><td><%=text_field 'profile', 'personal_website'%></td></tr>
+<tr class="odd"><th scope="row"><label>Training since:</label></th><td><%=date_select 'profile','started_to_train_on', :discard_month => true, :start_year=>1940, :end_year=>Time.now.year, :include_blank => true%></td></tr>
+<tr><th scope="row"><label for="profile_description">User comment:</label></th><td><%=text_area 'profile', 'description', :cols=>50, :rows => 10%></td></tr>
+<tr><td colspan="2" align="center"><%=submit_tag 'Save'%></td></tr>
+</tbody>
+</table>
+<%=end_form_tag%>

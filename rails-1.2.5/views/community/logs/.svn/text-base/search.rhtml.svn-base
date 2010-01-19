@@ -1,0 +1,3 @@
+<%= render :partial => '/shared/tag_cloud', :object => @cloud_tags, :locals => {:title => 'Related tags'} %>
+<%= render :partial => 'users', :object => @users %>
+<%= pagination_links_with_tags(@pages)%>

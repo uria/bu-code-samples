@@ -1,0 +1,13 @@
+<tr <%=cycle(" class='odd'", "")%>>
+<%@p = photo %>
+<td class='photo'><%= link_to(image_tag(url_for_file_column('p', 'image', "thumb")), {:controller =>'/journal/photos', :action=>'show', :log_name=>photo.user.login, :id=>photo.id}) %></td>
+<td class='community-photos-title'><%=link_to photo.title, {:controller =>'/journal/photos', :action=>'show', :log_name=>photo.user.login, :id=>photo.id} %>
+    <%=comments_count(photo)%>
+    <%=show_tags(photo.tag_names,{:controller => '/community/photos', :action => 'search'})%><br />
+    <span class="info">
+    Uploaded by <%=link_to photo.user.login, {:controller =>'/journal/photos', :action=>'index', :log_name=>photo.user.login}%>
+    <!--<%=distance_of_time_in_words_to_now(photo.updated_at)%> ago-->
+    <%=photo.updated_at.strftime("on %B %d, %Y")%>
+    </span>
+</td>
+</tr>

@@ -1,0 +1,2 @@
+<h3>Most popular users</h3>
+<%=render :partial => 'users', :object => @users %>

@@ -1,0 +1,65 @@
+<%content_for 'javascripts' do%>
+  <%= javascript_include_tag 'lightbox' %>
+<%end%>
+
+<%content_for 'stylesheets' do%>
+  <%= stylesheet_link_tag 'lightbox' %>
+<%end%>
+
+<%content_for 'title' do%>
+  Your training log online
+<%end%>
+
+<h1 id="tagline">&#8220;Journal your workouts online&#8221;</h1>
+
+<div id="signin">
+  <%= render :partial => 'shared/login' %>
+</div>
+
+<div id="trial-banner">
+<h3>TOTALLY FREE!</h3>
+<p>You are less<br />than a minute<br />away from<br />trying&#8230;</p>
+<%=bigbutton 'Sign up now &raquo;', {:controller=>'/account', :action=>'signup'}, nil, {:id => 'signup-button'}%>
+</div>
+
+<table id="screenshots">
+<tr>
+    <td class="screenshot">
+    <a href="/images/shots/ss1.png" rel="lightbox" title="Journal your workouts, programs, bodyweight, bodyfat...">
+        <img src="/images/shots/ss1_thumb.png" class="screenshot" width="158" height="109" alt="Log entry screenshot" title="Click to enlarge" />
+    </a>
+    <p class="tip">Click to enlarge</p>
+    </td>
+    <td><h3>&raquo; Log</h3><p class="info">Maintain a <strong>training journal</strong>.</p></td>
+</tr>
+<tr>
+    <td>
+    <a href="/images/shots/ss2.png" rel="lightbox" title="Share your training information with others. You can also make your entries private, if you want.">
+        <img src="/images/shots/ss2_thumb.png" class="screenshot" width="158" height="109" alt="Log entry screenshot" title="Click to enlarge" />
+    </a>
+    <p class="tip">Click to enlarge</p>
+    </td>
+    <td><h3>&raquo; Discuss</h3><p class="info">Share your training <strong>knowledge</strong> with others.</p></td>
+</tr>
+<tr>
+    <td>
+    <a href="/images/shots/ss3.png" rel="lightbox" title="Create reports to analyze your training parameters, bodyweight evolution...<br />Shown an intensity stack, plotting volume per intensity vs. time.">
+        <img src="/images/shots/ss3_thumb.png" class="screenshot" width="158" height="109" alt="Log entry screenshot" title="Click to enlarge" />
+    </a>
+    <p class="tip">Click to enlarge</p>
+    </td>
+    <td><h3>&raquo; Analyze</h3><p class="info">Create <strong>reports</strong> to asses goals and strategize your training.</p></td>
+</tr>
+<tr>
+    <td>
+    <a href="/images/shots/ss4.png" rel="lightbox" title="Export your journal and programs to PDF and Excel formats.">
+        <img src="/images/shots/ss4_thumb.png" class="screenshot" width="158" height="109" alt="Log entry screenshot" title="Click to enlarge" />
+    </a>
+    <p class="tip">Click to enlarge</p>
+    </td>
+    <td><h3>&raquo; Export</h3><p class="info">Export your journal and programs and <strong>print</strong> them.</p></td>
+</tr>
+</table>
+
+
+

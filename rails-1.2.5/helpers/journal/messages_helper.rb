@@ -1,0 +1,2 @@
+module Journal::MessagesHelper
+end

@@ -1,0 +1,5 @@
+<%=start_form_tag%>
+  <%=error_messages_for 'user'%>
+  <p><label for="user_metric_system">Units:</label><%=select('user','metric_system', [["Imperial system (lbs.)", false],["Metric system (kg.)", true]])%></p>
+  <%=submit_tag%>
+<%=end_form_tag%>

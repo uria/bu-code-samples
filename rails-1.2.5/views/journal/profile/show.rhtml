@@ -1,0 +1,20 @@
+<table class="profile">
+<thead>
+<tr><td><%=display_avatar%></td><td><h2><%=@user.login%><%=show_tags @user.tag_names, {:controller => '/community/logs', :action => 'search'}%></h2></td></tr>
+</thead>
+<tbody>
+<tr class="odd"><th scope="row">Name:</th><td><%=@profile.name%>&nbsp;<%=h @profile.last_name%></td></tr>
+<tr><th scope="row">Country:</th><td><%=h @profile.residence%></td></tr>
+<tr class="odd"><th scope="row">Age:</th><td><%=((Date.today-@profile.born_on.to_date)/365.25).to_i if @profile.born_on%></td></tr>
+<tr><th scope="row">Gender:</th><td><%=h @profile.gender%></td></tr>
+<tr class="odd"><th scope="row">Occupation:</th><td><%=h @profile.occupation%></td></tr>
+<tr><th scope="row">Personal website:</th><td><%=auto_link(h(@profile.personal_website))%></td></tr>
+<tr class="odd"><th scope="row">Logging since:</th><td><%=h @profile.started_to_log_on%></td></tr>
+<tr><th scope="row">Training since:</th><td><%=h @profile.started_to_train_on.year if @profile.started_to_train_on%></td></tr>
+<tr class="odd"><th scope="row">User comment:</th><td><%=auto_link(h(@profile.description))%></td></tr>
+<%if @buttons%>
+<tr><td colspan="2" align="center"><%=button('Edit', {:action => 'edit'}, 'edit.gif')%></td></tr>
+<%end%>
+</tbody>
+</table>
+

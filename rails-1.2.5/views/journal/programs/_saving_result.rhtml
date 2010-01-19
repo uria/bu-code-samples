@@ -1,0 +1,5 @@
+<%if @success%>
+  window.location = "<%=url_for :controller=>'programs'%>";
+<%else%>
+  alert("Error while saving session.");
+<%end%>

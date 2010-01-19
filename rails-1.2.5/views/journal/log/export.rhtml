@@ -1,0 +1,8 @@
+<%=form_tag%>
+<p><label>From:<%=date_select 'date', 'from'%></label></p>
+<p><label>To:<%=date_select 'date', 'to'%></label></p>
+<p>Format:</p>
+<p><input id="export_format_pdf" type= "radio" name="export[format]" checked="true" value="PDF" /><label for="export_format_pdf"><%=icon('pdf.gif', nil, {:alt => "Use pdf format."})%>PDF</label></p>
+<p><input id="export_format_csv" type="radio" name="export[format]" value="CSV" /><label for="export_format_csv"><%=icon('excel.gif', nil, {:alt => "Use csv format."})%>CSV</label></p>
+<%=submit_tag "Export"%>
+<%=end_form_tag%>

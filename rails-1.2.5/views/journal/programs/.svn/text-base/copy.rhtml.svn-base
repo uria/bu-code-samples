@@ -1,0 +1,12 @@
+<h3>Copy program to <%=session[:user].login%>'s log</h3>
+<%=form_tag %>
+<p>
+Program title: <%=text_field 'program', 'title', {:size => 64, :maxlength =>64, :onblur =>"javascript:light_validate_not_blank('prog_title')"}%>
+<span id="private-check"><%=check_box 'program', 'private'%><label for="program_private">Private entry</label></span>
+</p>
+<p>
+Tags: <%=text_field_tag 'tags' ,nil, {:size => 32}%>
+</p>
+<%=submit_tag "Copy"%>
+<%=end_form_tag %>
+

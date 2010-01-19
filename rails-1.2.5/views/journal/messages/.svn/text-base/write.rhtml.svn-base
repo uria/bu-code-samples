@@ -1,0 +1,10 @@
+<%= error_messages_for 'message' %><br/>
+<%=form_tag( {:action => 'write'}, {:autocomplete => 'off'})%>
+<p><label for="recipient_name">To:</label><%=text_field_tag 'recipient_name', @recipient_name%></p>
+<p><label for="subject">Subject:</label><%=text_field 'message','subject', {:id =>'subject'}%></p>
+<p><textarea cols="80" id="message_content" name="message[content]" rows="15">
+<%= @message.content if @message.content.length > 0 && @message.errors.count != 0-%>
+<%=">" + word_wrap(@message.content, 79).gsub("\n","\n>") if @message.content.length > 0 && @message.errors.count == 0-%>
+</textarea></p>
+<p><%=submit_tag 'Send'%></p>
+<%=end_form_tag%>

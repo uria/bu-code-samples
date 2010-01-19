@@ -1,0 +1,24 @@
+<div class="nav_menu">
+<ul>
+  <li <%="id='selected'" if @controller.controller_name()=='log'-%>><%=link_to content_tag("span", "Training log"), {:controller => "/journal/log", :action => "index", :log_name => params[:log_name]}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='programs'-%>><%=link_to content_tag("span","Programs"), {:controller => "/journal/programs", :action => "index", :log_name => params[:log_name]}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='stats'-%>><%=link_to content_tag("span","Body Stats."), {:controller => "/journal/stats", :action => "index", :log_name => params[:log_name]}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='reports'-%>><%=link_to content_tag("span","Reports"), {:controller => "/journal/reports", :action => "index", :log_name => params[:log_name]}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='profile'-%>><%=link_to content_tag("span","Profile"), {:controller => "/journal/profile", :action => "show", :log_name => params[:log_name]}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='photos'-%>><%=link_to content_tag("span","Photos"), {:controller => "/journal/photos", :action => "index", :log_name => params[:log_name]}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='buddies'-%>><%=link_to content_tag("span","Buddies"), {:controller => "/journal/buddies", :action => "index", :log_name => params[:log_name]}, {:class=>"nav_margin"}-%></li>
+
+  <% if user_is_log_owner? %>
+  <li <%="id='selected'" if @controller.controller_name()=='messages'-%>><%=link_to content_tag("span","Messages"), {:controller => "/journal/messages", :action => "index", :log_name => params[:log_name]}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='options'-%>><%=link_to content_tag("span","Options"), {:controller => "/journal/options", :action => "index", :log_name => params[:log_name]}, {:class=>"nav_last"}-%></li>
+  <%end%>
+</ul>
+</div>
+
+<div id="feeds">
+  <% if  logged_in? && !user_is_log_owner? %>
+    <%=icon('newmail.gif', {:controller => 'messages', :action => 'write'}, {:title => 'Send a message to this user'}) %>
+    <a href="#" onclick="javascript:new Ajax.Request('<%=url_for :log_name => current_user.login, :controller => 'buddies', :action => 'add', :name => @log_owner.login%>', {method: 'get', parameters: '', onComplete: function(req){new Insertion.Top('content',req.responseText);}})"><%=icon('buddiesadd.gif', nil, {:title => 'Add to your buddies'})%></a>
+  <% end %>
+  <%=icon('feedicon.gif', {:controller => 'log', :action => 'rss'}, {:title => 'This log RSS 2.0 XML Feed'}) %>
+</div>

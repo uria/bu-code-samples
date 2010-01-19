@@ -1,0 +1,40 @@
+8
+
+dir
+5
+svn://svn.lifterlog.com/training-connection/trunk/app/helpers/admin
+svn://svn.lifterlog.com/training-connection
+
+
+
+2007-05-12T00:07:33.350470Z
+1
+beni
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+c130efeb-51e3-4f42-ab0e-e41d2ce7fd77
+
+highlighted_workouts_helper.rb
+file
+
+
+
+
+2007-05-19T14:41:48.000000Z
+14320a1469f6c441b238cf56cfe3addf
+2007-05-12T00:07:33.350470Z
+1
+beni
+

@@ -1,0 +1,17 @@
+<h2>Vouchers for <%= @website.url %> </h2>
+<p>
+  <%= link_to "Go to store", @website.url, {:class => :link_out} %>
+</p>
+
+<div class="vouchers-list">
+<% @website.vouchers.each do |v| -%>
+  <% content_tag_for(:div, v, {:style => "background:#FFFFCC"}) do %>
+  <p>Voucher code: <span class="code"><%=h v.voucher %></span></p>
+  <p class="explanation"><%=h v.comment %></p>
+  <p class="voting-section">Did this voucher work for you?
+    <%=link_to_remote "Yes", :url => vote_voucher_path(:id =>v, "vote[positive]" => true)%>
+    <%=link_to_remote "No", :url => vote_voucher_path(:id => v, "vote[positive]" => 0)%>
+  </p>
+  <% end  %>
+<% end  -%>
+</div>

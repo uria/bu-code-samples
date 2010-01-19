@@ -1,0 +1,13 @@
+if @saved
+  page.replace_html('comment-errors', '')
+  page
+  page.insert_html(:bottom, 'user-comments', :partial => '/shared/comments/comment', :object => @comment, :locals => {:commentable => @comment.commentable})
+  page.visual_effect :highlight, "comment-#{@comment.id}"
+  page["comment_content"].value = "";
+  if logged_in?
+    page << "document.getElementsByClassName('edit-controls-#{current_user.login}').each(function(x){x.style.display = 'inline'});"
+    page << "document.getElementsByClassName('del-controls-#{current_user.login}').each(function(x){x.style.display = 'inline'});"
+  end
+else
+  page.replace_html('comment-errors', error_messages_for('comment'))
+end

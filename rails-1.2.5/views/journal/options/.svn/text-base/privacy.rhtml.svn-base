@@ -1,0 +1,5 @@
+<%=start_form_tag%>
+  <%=error_messages_for 'user'%>
+  <p><label for="user_private_default">Make entries </label><%=select('user','private_default', [["public", false],["private", true]])%> by default</p>
+  <%=submit_tag%>
+<%=end_form_tag%>

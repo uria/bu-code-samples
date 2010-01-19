@@ -1,0 +1,32 @@
+<div class="comment" id="comment-<%=comment.id%>">
+  <div class="options">
+    <%unless comment.user.nil? || comment.user.avatar_image.nil?
+      @author = comment.user
+    %>
+    <a href="<%=url_for :controller =>'/journal/log', :action=>'index', :log_name => comment.user.login %>"> <%=image_tag(url_for_file_column('author', 'avatar_image'), {:size=>'64x64', :class => 'avatar'}) %></a>
+    <%end %>
+    <%=icon('quote.gif', {:action=>'quote_comment', :id=>comment.commentable_id, :comment_id=>comment.id} , {:onclick => remote_function(:url => {:action=>'quote_comment', :id=>comment.commentable_id, :comment_id=>comment.id})+";return false;", :class => 'clickable'})%>
+    <span class="edit-controls-<%=comment.user()? comment.user.login : "anon"%>">
+      <%=icon('edit.gif', {:action=>'edit_comment', :id=>comment.id}, {:class=>"edit-inplace", :id=>"edit-#{comment.id}"})-%>
+    </span>
+    <span class="del-controls-<%=comment.user()? comment.user.login : "anon"%>">
+      <%=icon('bin.gif', {:action=>'delete_comment', :id=>comment.commentable_id, :comment_id=>comment.id} , {:onclick => remote_function(:url => {:action=>'delete_comment', :id=>comment.commentable_id, :comment_id=>comment.id}, :confirm => 'Are you sure you want to delete this comment?', :post => true)+";return false;", :class => 'clickable'})%>
+    </span>
+  </div>
+  <div class="intro">
+  <em class="author">
+    <%if comment.user.nil? %>
+      <%=h comment.name.capitalize %>
+    <%else %>
+      <%=link_to comment.user.login.capitalize, {:controller =>'/journal/log', :action=>'index', :log_name => comment.user.login} %>
+    <%end %>
+    </em> said <%=distance_of_time_in_words commentable.created_at, comment.created_at%> later:
+  </div>
+  <div class="content" id="content-<%=comment.id-%>"><%=auto_link(simple_format(whitelist(comment.content))) %>
+  </div>
+
+  <script type="text/javascript">
+     new Ajax.InPlaceEditor("content-<%=comment.id-%>", '<%=url_for :action=>'edit_comment', :id=>comment.id%>', {rows:8,cols:66,externalControl:"edit-<%=comment.id-%>"});
+  </script>
+
+</div>

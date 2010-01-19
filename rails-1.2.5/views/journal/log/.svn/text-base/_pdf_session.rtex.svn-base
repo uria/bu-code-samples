@@ -1,0 +1,36 @@
+  \begin{center}
+    \section*{<%=pdf_session.done_on.to_formatted_s%> - <%=l pdf_session.title%>}
+    \normalsize
+    <%if pdf_session.training_sets.length > 0 %>
+    \begin{tabular}{| p{6cm} | r | r | r | r r |}
+      \hline
+      \textbf{Exercise} & \textbf{Sets} & \textbf{Reps} & \textbf{Weight} & \multicolumn{2}{|c|}{\textbf{Intensity}} \\ \hline
+      <%partitionize(pdf_session.training_sets).each do |sets|%>
+      <% if sets.size > 1 %>
+        <%sets.each_with_index do |set,i|%>
+          <% if i==0 %>
+            \multirow{<%=sets.length%>}{5.9cm}{<%=l set.exercise.name%>}&<%=set.sets%>&<%=set.reps%>&<%=weight_with_units(set.weight)%>&<%=l intensity_as_1rm_percentage(set.intensity)%>&(<%=intensity_as_xrm(set.intensity)%>)\\
+          <%else%>
+            &<%=set.sets%>&<%=set.reps%>&<%=weight_with_units(set.weight)%>&<%=l intensity_as_1rm_percentage(set.intensity)%>&(<%=intensity_as_xrm(set.intensity)%>)\\
+          <%end%>
+        <%end%>
+      <%else%>
+        <%set = sets[0]%>
+        <%=l set.exercise.name%>&<%=set.sets%>&<%=set.reps%>&<%=weight_with_units(set.weight)%>&<%=l intensity_as_1rm_percentage(set.intensity)%>&(<%=intensity_as_xrm(set.intensity)%>)\\
+      <%end%>
+         \hline
+      <%end%>
+    \end{tabular}
+    \begin{tabular}{| l | r || l | r |}
+      \hline
+      \multicolumn{4}{|c|}{\textbf{Session measures}} \\ \hline
+      Volume&<%=l weight_with_units(pdf_session.volume) %>&Avg. Intensity&<%=l intensity_as_1rm_percentage(pdf_session.avg_intensity) %>\\ \hline
+      Number of lifts&<%=pdf_session.number_of_lifts %> lifts&Max. Intensity&<%=l intensity_as_1rm_percentage(pdf_session.max_intensity) %>\\ \hline
+    \end{tabular}
+    <%else%>
+    %Si no casca si esta el comentario vacio
+    \hspace{1cm}
+    <%end%>
+  \end{center}
+  <%=l pdf_session.comments%>
+  \pagebreak[3]

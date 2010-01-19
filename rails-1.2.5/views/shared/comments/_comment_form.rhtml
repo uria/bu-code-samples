@@ -1,0 +1,12 @@
+<A NAME="new_comment"></A>
+<% if !logged_in?%>
+  <p>
+  Your name:<br />
+  <%=text_field 'comment', 'name'%>
+  </p>
+<% end %>
+<p>
+Your comment:<br />
+  <%=text_area 'comment', 'content', {'cols' =>66, 'rows' =>8} %>
+</p>
+<%=submit_tag 'Send', {:id => 'submit_comment'} %><img id="loading_pic" src='/images/activity.gif' style='display:none' alt='Processing...'/>

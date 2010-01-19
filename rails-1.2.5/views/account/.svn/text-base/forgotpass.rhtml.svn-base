@@ -1,0 +1,13 @@
+<%if @user.nil?%>
+    <div class="form">
+      <%= start_form_tag%>
+        <p><label for="email">Login or email:</label><%= text_field_tag 'email' %></p>
+        <p>Note: You can enter your user name or the e-mail you used during the sign-up process.</p>
+        <p><%= submit_tag 'Submit'%></p>
+      <%= end_form_tag %>
+    </div>
+<%else%>
+    <div>
+        You will receive an email containing a link to change your password. If it's not in your inbox, check on your spam folder.
+    </div>
+<%end%>

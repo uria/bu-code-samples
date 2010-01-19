@@ -1,0 +1,1 @@
+<p id="breadcrumbs"><%=link_to params[:log_name].capitalize, {:controller => 'log'}-%> > <%=link_to @controller_name || params[:controller].sub(/journal\//, '').capitalize, {:action => ''}-%> > <%=params[:action].sub(/_/, ' ').capitalize-%></p>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title>Training Connection - Community - <%=@content_for_title || controller.controller_name.capitalize %></title>
+  <meta name="description" content="Community of users. Find people with same training interests or search for training programs. Everyone is welcome; powerlifters, olympic lifters, bodybuilders, newbies, experts..." />
+  <meta name="keywords" content="training, log, diary, sport, powerlifting, lifting, bodybuilding, free, strength, bodyweight, bodyfat, bodycomp" />
+  <%= stylesheet_link_tag 'general5' %>
+  <%= stylesheet_link_tag 'rails' %>
+  <%= stylesheet_link_tag 'menu2' %>
+  <%= @content_for_stylesheets-%>
+
+  <%= javascript_include_tag "prototype" %>
+  <%= @content_for_javascripts%>
+</head>
+<body class="community">
+<div id="page">
+  <%= render(:partial => "shared/header") %>
+  <div id="menu">
+    <%= render(:partial => "shared/community_menu") %>
+  </div>
+  <div id="wrapper">
+  <%= render(:partial => "shared/notices") %>
+  <div id="content">
+    <%= @content_for_layout%>
+  </div>
+  <div id="footer">
+    <%= render(:partial => "shared/copyright") %>
+  </div>
+  </div>
+</div>
+<%= render(:partial => "shared/tracker_code") %>
+</body>
+</html>

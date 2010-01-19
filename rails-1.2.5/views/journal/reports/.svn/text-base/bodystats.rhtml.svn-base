@@ -1,0 +1,2 @@
+({BODYWEIGHT: [ <%=@res.collect { |x| sprintf("[%d, %.3f]",  Time.parse(x['t']).to_i*1000, x['bodyweight']) }.join(',')%> ],
+BODYFAT: [ <%=@res.delete_if {|x| x['bodyfat'].nil?}.collect { |x| sprintf("[%d, %.3f]",  Time.parse(x['t']).to_i*1000, x['bodyfat'])}.join(',')%> ]})

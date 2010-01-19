@@ -1,0 +1,10 @@
+<%=form_tag%>
+<%= merge_error_messages @errors %>
+<p>
+<label for='exercise_to_rename_name'>Exercise to rename:</label><%=text_field 'exercise_to_rename', 'name'%>
+</p>
+<p>
+<label for='exercise_to_preserve_name'>Exercise to merge with:</label><%=text_field 'exercise_to_preserve', 'name'%>
+</p>
+<%=submit_tag 'Save'%>
+<%=end_form_tag%>

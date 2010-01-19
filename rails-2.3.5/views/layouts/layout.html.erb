@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en" lang="en">
+  <head>
+    <title>Voucher whatever</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%=  javascript_include_tag 'prototype' %>
+
+    <%= stylesheet_link_tag "default" %>
+    <%= stylesheet_link_tag "formtastic" %>
+    <%= stylesheet_link_tag "formtastic_changes" %>
+    <%= stylesheet_link_tag "style" %>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+	<form id="search-box" method="post" action="/websites/search">
+	  <input name="q" size="22" maxlength="2048" title="Search" type="text" />
+	  <input name="button" value="Search" type="submit" />
+	</form>
+	<h1><a href="/">VoucherWhatever</a></h1>
+      </div>
+      <div id="content-wrapper">
+        <div class="right-column">
+          <div id="link-to-share">
+            <%= link_to "Share a voucher >>", new_voucher_path %>
+          </div>
+        </div>
+        <div id="content">
+          <%=yield%>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      <a>About us</a> |
+      <a>Contact information</a> |
+      <a>Remove voucher</a>
+    </div>    
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<%content_for 'stylesheets' do%>
+    <%=stylesheet_link_tag "windows"%>
+<%end%>
+
+<%content_for 'javascripts' do%>
+<%=javascript_include_tag "windows"%>
+
+<script type="text/javascript">
+var wx=500,wy=200,wz=150;
+function create_kind_dialog(id, login)
+{
+    wid = "window"+login;
+
+    if($(wid) == undefined)
+    {
+        url = "/admin/user_kind/"+id;
+
+        new Ajax.Request(url, {
+            method: "get",
+            onComplete: function(request) {
+                win2 = new Window(wid, {
+                  title: login,
+                  width:250, height:120, top:wy, left: wx,
+                  zIndex:wz, opacity:1, resizable: false, minimizable: false, maximizable: false,
+                  hideEffect: Effect.Fade
+                });
+                  win2.getContent().innerHTML = request.responseText;
+                  win2.setDestroyOnClose();
+                  win2.show();
+            }});
+
+        wx=(wx+20)%800;
+        wy=(wy+20)%500;
+        wz++;
+    }
+    else
+    {
+        Windows.getWindow(wid).toFront();
+    }
+ }
+</script>
+<%end%>
+
+<p>
+<label for='filter'>Filter:</label> <%=text_field_tag(:filter, nil, {:size => 20})%>
+<img id="spinner" src='/images/activity.gif' style='display:none' alt='Processing...'/>
+</p>
+
+<div id="users_table">
+    <%=render :partial => 'users_table', :locals => { :pages => @pages, :users => @users}%>
+</div>
+
+<%= observe_field(:filter,
+                 :frequency => 1,
+                 :update => :users_table,
+                 :with => 'filter',
+                 :loading => "Element.show('spinner')",
+                 :complete => "Element.hide('spinner')",
+                 :url => { :action => :filter }) %>
+

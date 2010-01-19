@@ -1,0 +1,11 @@
+<div class="nav_menu">
+<ul>
+  <li <%="id='selected'" if @controller.controller_name()=='logs'-%>><%=link_to content_tag("span", "Logs"), {:controller => "/community/logs", :action => "index"}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='programs'-%>><%=link_to content_tag("span","Programs"), {:controller => "/community/programs", :action => "index"}-%></li>
+  <li <%="id='selected'" if @controller.controller_name()=='photos'-%>><%=link_to content_tag("span","Photos"), {:controller => "/community/photos", :action => "index"}, {:class=>"nav_last"}-%></li>
+</ul>
+</div>
+
+<div id="feeds">
+  <%=icon('feedicon.gif', {:controller => '/community/general', :action => 'rss'}, {:title => 'All users RSS 2.0 XML Feed'}) %>
+</div>

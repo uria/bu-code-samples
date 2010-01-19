@@ -1,0 +1,10 @@
+"<%= @program.title.gsub('"', '""')-%>"
+<%@program.program_sessions.each do |ses| -%>
+
+"<%= ses.name.gsub('"', '""')-%>"
+Exercise,Sets,Reps,Intensity
+<%ses.program_sets.each do |set| -%>"<%= set.exercise.name.gsub('"', '""')-%>",<%=set.sets-%>,<%=set.reps-%>,<%=set.intensity*100-%>%
+<%end-%>
+"<%= ses.comments.gsub('"', '""')-%>"
+<%end%>
+"<%= @program.comments.gsub('"', '""')-%>"

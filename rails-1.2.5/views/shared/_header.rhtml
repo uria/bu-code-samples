@@ -1,0 +1,31 @@
+<div id="header">
+  <div id="header_image">
+    <%=display_avatar%>
+     <a href="/"><img id="logo" src="/images/logo.png" alt="Charles Staley's Training Connection" width="386" height="55" /></a>
+  </div>
+  <div id="header_menu">
+    <%if logged_in?-%>
+      <em>Welcome <%=session[:user].login%></em> |
+      <%if params[:log_name]==nil || params[:log_name].casecmp(session[:user].login) != 0 -%>
+        <%=link_to "Your training log", {:controller => "/journal/log", :action => "index", :log_name => session[:user].login}-%> |
+      <%end-%>
+      <%=link_to "Community", {:controller => "/community/logs", :action => "index"}-%> |
+      <%=link_to "Sign out", {:controller => "/account", :action => "logout"}-%>
+    <%else-%>
+      <%=link_to "Community", {:controller => "/community/logs", :action => "index"}-%> |
+      <%=link_to_unless_current "Free registration", {:controller => "/account", :action => "signup"} do "<strong>Free Registration</strong>" end%> |
+      <%=link_to_unless_current "Sign in", {:controller => "/account", :action => "login"} do "<strong>Sign in</strong>" end%>
+    <%end-%>
+  </div>
+
+  <div id="header_extra">
+    <%if logged_in? && !session[:new_messages].nil? && session[:new_messages] > 0 -%>
+        <%=link_to "<img src='/images/inbox.gif' alt='New messages.' width='32' height='32' />", {:controller => '/journal/messages', :action => 'index', :log_name => current_user.login}, {:id => "header-inbox-link"} -%>
+    <%end-%>
+    <!--
+    <%if current_user_is_log_owner? && log_owner.trial?-%>
+        <a href="/account/purchase"><img src="/images/trial-banner.png" alt="Trial member. Buy now" width="170" height="50" /></a>
+    <%end-%>
+    -->
+  </div>
+</div>

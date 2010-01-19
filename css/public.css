@@ -1,0 +1,82 @@
+/*ENTRANCE*/
+div#wrapper #entrance_content{  margin: 20px 40px }
+
+h1#tagline {
+  text-align: center;
+  font-size: 20pt;
+  margin-bottom: 30px;
+}
+
+table#screenshots h3{
+  color: #1d4b91;
+  font-size: 13pt;
+  font-weight: bold;
+  margin: 0 0 0 10px;
+}
+
+table#screenshots p.info{
+  margin: 0 0 0 10px;
+  width: 230px;
+  text-indent: 1em;
+  font-size: 0.85em;
+  text-align: justify;
+}
+
+table#screenshots a{
+  padding:0;
+}
+
+table#screenshots p.tip {
+  color: #888;
+  margin:0;
+  padding:0;
+  font-size: 70%;
+  line-height: 100%;
+  text-align: center;
+}
+
+div#signin{
+  width:160px;
+  float:right;
+  padding: 0 0 0 25px;
+  margin: 0 0 50px 0;
+  border-left: 1px dashed #999;
+}
+
+div#trial-banner{
+  background: url("/images/trialbanner.png");
+  width:275px;
+  height:263px;
+  float:right;
+  margin-right: 20px;
+  text-align: center;
+}
+
+div#trial-banner h3{
+  color: #1d4b91;
+  font-size: 13pt;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+div#trial-banner p{
+  font-size: 13pt;
+  font-weight: bold;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+div#trial-banner #signup-button{
+  margin: 0 auto;
+}
+
+div#loginform #login, div#loginform #password{
+  width:150px;
+}
+
+div#promo #signupbutton { float: right; margin: 40px 50px 0 0; clear: right }
+/* Sign-up form */
+input#user_login, input#user_email, input#user_password, input#user_password_confirmation{
+  width: 200px;
+}
+

@@ -1,0 +1,6 @@
+<%=error_messages_for 'user'%>
+<p>Current avatar:<%=display_avatar%></p>
+<%=form_tag({}, {:multipart => true})%>
+<p>Avatar image:<%= file_column_field 'user', 'avatar_image' %></p>
+<%=submit_tag "Save"%>
+<%=end_form_tag%>

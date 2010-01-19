@@ -1,0 +1,83 @@
+<%content_for 'meta' do%>
+    <meta name="robots" content="nofollow" />
+<%end%>
+
+<% cache(:action => 'show', :part => 'data') do %>
+<div class="export-links">
+<%=link_to(image_tag('icons/pdf_big.gif', {:alt => 'Export as PDF', :size =>'32x32'}), {:action => 'pdf', :id => @program.id}, {:title => 'Export as PDF'}) %>
+<%=link_to(image_tag('icons/csv_big.gif', {:alt => 'Export as CSV', :size =>'32x32'}), {:action => 'csv', :id => @program.id}, {:title => 'Export as CSV'}) %>
+</div>
+
+<h2><%=private_icon @program.private%> <%=h(@program.title)-%><%=show_tags(@program.tag_names, {:action => "search"})%></h2>
+
+<% @program.program_sessions.each do |ses|%>
+<p><h3><%=ses.name%></h3></p>
+<table class = "session_show_table">
+  <%if ses.program_sets.size > 0 %>
+  <tr>
+    <th>Exercise</th><th>Sets</th><th>Reps</th><th>Intensity (%1RM)</th>
+  </tr>
+  <%partitionize(ses.program_sets).each do |sets|-%>
+    <% zebra = cycle("0", "1") %>
+    <%sets.each_with_index do |set,i|%>
+      <tr class=zebra_<%=zebra%>>
+      <% if i==0 %>
+        <td class='exercise' rowspan="<%=sets.length%>"><%=h sets[0].exercise.name%></td>
+      <% end %>
+      <td><%=set.sets%></td><td><%=set.reps%></td><td><%=intensity_as_1rm_percentage(set.intensity)%> (<%=intensity_as_xrm(set.intensity)%>)</td>
+      </tr>
+    <%end-%>
+  <%end -%>
+  <%end -%>
+</table>
+<div class="owner-comments">
+    <%=auto_link(simple_format(h(ses.comments)))%>
+</div>
+<%end-%>
+
+<%if @program.comments != ""%>
+  <h3>Program comments:</h3>
+  <div class="owner-comments">
+    <%=auto_link(simple_format(h(@program.comments)))%>
+  </div>
+<%end%>
+
+<%end %>
+
+<%if @buttons%>
+  <div class="button_container">
+  <%= button('Duplicate', {:action => 'copy', :id=> @program.id}, 'duplicate.gif')%>
+  <%= button('Edit', {:action => 'edit', :id => @program.id}, 'edit.gif')%>
+  <%= button('Delete', {:action => 'delete', :id => @program.id}, 'delete.gif', {:confirm => "Delete program.\nAre you sure?", :post => true, :class => 'button'})%>
+  </div>
+<%elsif @copy_button%>
+  <div class="button_container">
+  <%= button('Copy to my programs', {:action => 'copy', :id=> @program.id})%>
+  </div>
+<%end%>
+
+<% cache(:action => 'show', :part => 'comments') do %>
+<div id="comments-header">Comments</div>
+
+<div id="user-comments">
+  <%=render :partial => '/shared/comments/comment', :collection => @comments, :locals => {:commentable => @program}%>
+</div>
+
+<% end %>
+
+<div id="comment-errors">
+  <%=error_messages_for('comment')%>
+</div>
+
+<%= form_remote_tag :url => {:action => 'new_comment', :id => @program.id}, :before => "$('submit_comment').disabled = true", :loading => "$('loading_pic').style.display = 'inline'", :complete => "$('loading_pic').style.display = 'none'; $('submit_comment').disabled = false" ,:html => {:class => 'comment-form'} %>
+  <%=render :partial => '/shared/comments/comment_form' %>
+<%= end_form_tag %>
+
+<script type="text/javascript">
+    document.getElementsByClassName("edit-controls-<%=current_user.login if logged_in?%>").each(function(x){x.style.display = "inline"});
+    document.getElementsByClassName("del-controls-<%=current_user.login if logged_in?%>").each(function(x){x.style.display = "inline"});
+    <%if write_permission?%>
+    document.getElementsByClassName("del-controls-anon").each(function(x){x.style.display = "inline"});
+    <%end %>
+</script>
+

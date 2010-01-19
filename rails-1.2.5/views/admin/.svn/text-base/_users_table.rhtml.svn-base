@@ -1,0 +1,15 @@
+<table>
+    <tr><th>Login</th><th>Status</th><th>Registration</th></tr>
+    <%@users.each do |user|%>
+        <tr id="user<%=user.id%>" class="<%=cycle("odd", "even")%>">
+       <td><a href="/<%=user.login%>"><%=user.login%></a></td>
+       <td><a id="kind<%=user.id%>" href="#" onclick="javascript:create_kind_dialog(<%=user.id%>, '<%=user.login%>')"><%=humanize_kind user.kind%></a></td>
+       <td><%=user.created_at.strftime("%Y-%m-%d")%></td>
+        </tr>
+    <%end%>
+</table>
+<%=pagination_links_remote(@pages, {:window_size => 3},
+    :url => {:action => :filter, :filter => @filter || ''},
+    :update => { :success => "users_table"},
+    :before   => %(Element.show('spinner')),
+    :success  => %(Element.hide('spinner')))%>

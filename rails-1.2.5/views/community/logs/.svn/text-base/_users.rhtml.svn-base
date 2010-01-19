@@ -1,0 +1,9 @@
+<% if @users.length > 0 %>
+<table class="index">
+  <%@users.each do |u|%>
+  <tr <%=cycle("class='odd'","")-%>>
+  <td class="title"><%=link_to u.login, :controller => '/journal/log', :action => 'index', :log_name=>u.login%><%=show_tags(u.tag_names,{:controller => '/community/logs', :action => 'search'})%></td>
+  </tr>
+  <%end%>
+</table>
+<%end%>

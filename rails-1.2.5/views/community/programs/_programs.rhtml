@@ -1,0 +1,23 @@
+<% if programs.length > 0 %>
+<table class="index">
+  <% programs.each do |p|%>
+  <tr <%=cycle("class='odd'","")-%>>
+  <td class="community-photos-title"><%= link_to p.title, :controller => '/journal/programs', :log_name => p.user.login, :action => 'show', :id=> p.id%> <%=comments_count(p)%><%=show_tags(p.tag_names,{:controller => '/community/programs', :action => 'search'})%>
+  <br />
+  <span class="info">
+    Created by <%=link_to p.user.login, {:controller =>'/journal/log', :action=>'index', :log_name=>p.user.login}%>
+    <!--<%=distance_of_time_in_words_to_now(p.updated_at)%> ago-->
+    <%=p.updated_at.strftime("on %B %d, %Y")%>
+  </span>
+  </td>
+  <%if @copy_button %>
+  <td class="edit_options">
+        <%=link_to "Copy to my programs", {:controller => '/journal/programs', :log_name => p.user.login, :action => 'copy', :id=> p.id}%>
+  </td>
+  <% end %>
+  <td><%= icon('pdf.gif', {:controller => '/journal/programs', :log_name => p.user.login, :action => 'pdf', :id=> p.id}, {:alt => 'Export to pdf'})%>
+      <%= icon('excel.gif', {:controller => '/journal/programs', :log_name => p.user.login, :action => 'csv', :id=> p.id}, {:alt => 'Export to excel'})%></td>
+  </tr>
+  <%end%>
+</table>
+<%end%>

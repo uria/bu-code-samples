@@ -1,0 +1,9 @@
+<% semantic_form_for @voucher do |form| %>
+  <% form.inputs do %>
+    <%= form.input :website_domain, :as => :string, :label => 'Website' %>
+    <%= form.input :voucher, :label => 'Voucher' %>
+    <%= form.input :comment, :label => 'Comment' %>
+    <%= form.input :expires, :blank =>true, :default => nil, :label => 'Expires' %>
+    <%= form.commit_button -%>
+  <% end  %>
+<% end  -%>

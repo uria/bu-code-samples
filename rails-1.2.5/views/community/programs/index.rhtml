@@ -1,0 +1,7 @@
+<% cache do%>
+<h2>Last programs created</h2>
+<%= render :partial => '/shared/tag_cloud', :object => @cloud_tags %>
+<%= render :partial => 'programs', :object => @progs %>
+<%= pagination_links_with_tags(@pages)%>
+<%= render_component(:controller => 'community/programs', :action=>'popular_programs')  %>
+<% end %>

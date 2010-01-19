@@ -1,0 +1,10 @@
+<h2>Newest vouchers:</h2>
+<% @vouchers.each do |v| -%>
+  <% content_tag_for(:div, v) do %>
+    <p><%= v.website.url %> <span class="code"><%= v.voucher %></span></p>
+    <p><%= v.comment -%></p>
+    <p class="more-vouchers"><%=link_to "More vouchers for #{v.website.url}", website_vouchers_path(v.website) -%></p>
+  <% end  -%>
+<% end  -%>
+
+

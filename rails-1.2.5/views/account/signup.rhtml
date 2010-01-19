@@ -1,0 +1,26 @@
+<%content_for 'title' do%>
+  Sign up
+<%end%>
+
+<div id="signup">
+<%= error_messages_for 'user' %>
+<%= start_form_tag %>
+<p><label for="user_login">Username:</label><br/>
+<%= text_field 'user', 'login' %></p>
+
+<p><label for="user_email">e-mail:</label><br/>
+<%= text_field 'user', 'email' %></p>
+
+<p><label for="user_password">Password:</label><br/>
+<%= password_field 'user', 'password' %></p>
+
+<p><label for="user_password_confirmation">Confirm Password:</label><br/>
+<%= password_field 'user', 'password_confirmation' %></p>
+
+<p><label for="user_metric_system">Units:</label><br /><%=select('user','metric_system', [["Imperial system (lbs.)", false],["Metric system (kg.)", true]])%></p>
+
+<p><%=check_box_tag "agreed_tos" %><label for="agreed_tos">I have read and fully agree <%=link_to 'Terms of Service', {:controller => 'entrance', :action =>'termsofservice'}%></label><br/></p>
+
+<p><%= submit_tag 'Sign up' %></p>
+<%= end_form_tag %>
+</div>

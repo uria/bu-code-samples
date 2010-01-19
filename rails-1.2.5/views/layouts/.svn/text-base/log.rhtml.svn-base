@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title>Training Connection - <%=(@log_owner.nil?()?"":"#{@log_owner.login.capitalize} - ") + (@content_for_title || controller.controller_name.capitalize) %></title>
+  <meta name="description" content="<%=@log_owner.login.capitalize if @log_owner%>'s training log, training programs, reports, charts, body weight progress. " />
+  <meta name="keywords" content="training, log, diary, sport, powerlifting, lifting, bodybuilding, free, strength, bodyweight, bodyfat, bodycomp" />
+  <%= @content_for_meta%>
+
+  <%= auto_discovery_link_tag(:rss, {:controller => 'log', :action => 'rss'}, {:title => 'Training log RSS'})%>
+  <%= @content_for_autodiscovery%>
+
+  <%= stylesheet_link_tag 'general5' %>
+  <%= stylesheet_link_tag 'menu2' %>
+  <%= stylesheet_link_tag 'log4' %>
+  <%= stylesheet_link_tag 'rails' %>
+  <%= @content_for_stylesheets-%>
+<!--[if lt IE 6]>
+   <%= stylesheet_link_tag 'ie' %>
+<![endif]-->
+  <%= javascript_include_tag "prototype" %>
+  <%= javascript_include_tag "controls_modified" %>
+  <%= javascript_include_tag "effects" %>
+  <%= javascript_include_tag "dragdrop" %>
+  <%= @content_for_javascripts%>
+</head>
+<body class="body">
+<div id="page">
+  <%= render(:partial => "shared/header") %>
+  <div id="menu">
+    <%= render(:partial => "shared/log_menu") %>
+  </div>
+  <div id="wrapper">
+  <%= render(:partial => "shared/notices") %>
+  <%= render(:partial => "shared/route")-%>
+  <div id="content">
+    <%= @content_for_layout%>
+  </div>
+  <div id="footer">
+    <%= render(:partial => "shared/copyright") %>
+  </div>
+  </div>
+</div>
+<%= render(:partial => "shared/tracker_code") %>
+</body>
+</html>

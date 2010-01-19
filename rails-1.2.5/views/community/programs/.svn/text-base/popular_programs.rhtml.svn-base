@@ -1,0 +1,2 @@
+<h2>Most popular programs</h2>
+<%= render :partial => 'programs', :object => @programs %>

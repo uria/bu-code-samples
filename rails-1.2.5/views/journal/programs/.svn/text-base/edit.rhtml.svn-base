@@ -1,0 +1,7 @@
+<%= render :partial => 'program_edition_template', :locals => {:url =>{:action => 'edit', :id => @prog.id}}%>
+<%@title = "Edit program"%>
+
+<script type="text/javascript">
+<%=program_to_javascript(@prog)%>
+edit_program_init();
+</script>

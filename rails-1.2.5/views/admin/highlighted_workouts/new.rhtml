@@ -1,0 +1,10 @@
+<%=error_messages_for 'workout' %>
+<%=start_form_tag%>
+    <p><label>Since:</label><br /><%=date_select('workout', 'since')%><br />
+        The date from which the workout will be highlighted. You'll probably want to put today's date here.</p>
+    <p><label for="workout_training_session_id">Workout ID:</label><br /><%=text_field('workout', 'training_session_id', "size" => 6)%><br />
+        If you wanted to highlight the workout at http://community.staleytraining.com/username/show/1230 you'd enter 1230 here.
+    </p>
+    <p><label for="workout_comments">Comments:</label><br /><%=text_area('workout', 'comments', "cols" => 66, "rows" => 10)%></p>
+    <%= submit_tag 'SAVE'%>
+<%=end_form_tag%>

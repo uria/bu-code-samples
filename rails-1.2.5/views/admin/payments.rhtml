@@ -1,0 +1,12 @@
+<table>
+<tr><th>Successful</th><th>Originating IP</th><th>Timestamp</th><th>User</th><th>Request Parameters</th></tr>
+<%@payments.each do |p|%>
+<tr class="<%=cycle("odd", "even")%>">
+<td><%=p.success%></td>
+<td><%=p.ip%></td>
+<td><%=p.created_at.to_formatted_s(:db)%></td>
+<td><%=p.user ? p.user.login : "-"%></td>
+<td><%=p.parameters%></td>
+</tr>
+<%end%>
+</table>

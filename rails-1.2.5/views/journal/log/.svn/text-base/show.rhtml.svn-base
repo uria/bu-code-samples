@@ -1,0 +1,99 @@
+<%content_for 'meta' do%>
+    <meta name="robots" content="nofollow" />
+<%end%>
+
+
+<%content_for 'javascripts' do%>
+    <%= javascript_include_tag 'unit_conversion3' %>
+<%end%>
+
+<% cache(:action => 'show', :part => 'data') do%>
+
+<%=javascript_preferred_units%>
+
+<div class="export-links">
+<%=link_to(image_tag('icons/pdf_big.gif', {:alt => 'Export as PDF', :size =>'32x32'}), {:action => 'pdf', :id => @ses.id}, {:title => 'Export as PDF'}) %>
+<%=link_to(image_tag('icons/csv_big.gif', {:alt => 'Export as CSV', :size =>'32x32'}), {:action => 'csv', :id => @ses.id}, {:title => 'Export as CSV'}) %>
+</div>
+
+<h3><%=private_icon @ses.private%> [<%= @ses.done_on-%>] <%= @ses.title-%></h3>
+
+<div id="session_exercises">
+<% if @ses.training_sets.size > 0 %>
+<table class = "session_show_table">
+  <tr>
+    <th>Exercise</th><th>Sets</th><th>Reps</th><th>Weight</th><th>Intensity</th><th>1RM</th>
+  </tr>
+  <%partitionize(@ses.training_sets).each do |sets|-%>
+    <% zebra = cycle("0", "1") %>
+    <%sets.each_with_index do |set,i|%>
+      <tr class=zebra_<%=zebra%>>
+      <% if i==0 %>
+        <td class="exercise" rowspan="<%=sets.length%>"><%=h sets[0].exercise.name%></td>
+        <td><%=set.sets%></td><td><%=set.reps%></td><td><%=weight_with_units(set.weight)%></td><td><%=intensity_as_1rm_percentage(set.intensity)%> (<%=intensity_as_xrm(set.intensity)%>)</td>
+        <td rowspan="<%=sets.length%>"><%=weight_with_units( ((sets.last.intensity>0)?(sets.last.weight/sets.last.intensity):0), 1)%></td>
+      <% else %>
+        <td><%=set.sets%></td><td><%=set.reps%></td><td><%=weight_with_units(set.weight)%></td><td><%=intensity_as_1rm_percentage(set.intensity)%> (<%=intensity_as_xrm(set.intensity)%>)</td>
+      <% end %>
+      </tr>
+    <%end-%>
+  <%end -%>
+</table>
+<%end%>
+<%if @ses.comments != ""%>
+<div class="owner-comments">
+  <%=auto_link(simple_format(h(@ses.comments)))%>
+</div>
+<%end%>
+</div>
+
+<% if @ses.training_sets.size > 0 %>
+<div id="session_measures">
+</div>
+<% end %>
+
+<% if @ses.training_sets.size > 0 %>
+<script type="text/javascript">
+var session = <%= training_session_to_javascript(@ses) %>
+$("session_measures").innerHTML = generate_training_session_measures_table(session);
+plot_intensity_zones(trainingSessionIntensityDistribution(session));
+</script>
+<% end %>
+
+<% end %>
+
+<%if @buttons%>
+  <div class="button_container">
+  <%= button('Edit', {:action => 'edit', :id => @ses.id}, 'edit.gif')%>
+  <%= button('Delete', {:action => 'delete', :id => @ses.id}, 'delete.gif', {:confirm => "Delete session.\nAre you sure?", :post => true})%>
+  </div>
+<%end%>
+
+<% cache(:action => 'show', :part => 'comments') do%>
+
+<div id="comments-header">
+  Comments
+</div>
+
+<div id="user-comments">
+  <%=render :partial => '/shared/comments/comment', :collection => @comments, :locals => {:commentable => @ses}%>
+</div>
+
+<% end %>
+
+<div id="comment-errors">
+  <%=error_messages_for('comment')%>
+</div>
+
+<%= form_remote_tag :url => {:action => 'new_comment', :id => @ses.id}, :before => "$('submit_comment').disabled = true", :loading => "$('loading_pic').style.display = 'inline'", :complete => "$('loading_pic').style.display = 'none'; $('submit_comment').disabled = false" ,:html => {:class => 'comment-form'}  %>
+  <%=render :partial => '/shared/comments/comment_form' %>
+<%= end_form_tag %>
+
+<script type="text/javascript">
+    document.getElementsByClassName("edit-controls-<%=current_user.login if logged_in?%>").each(function(x){x.style.display = "inline"});
+    document.getElementsByClassName("del-controls-<%=current_user.login if logged_in?%>").each(function(x){x.style.display = "inline"});
+    <%if write_permission?%>
+    document.getElementsByClassName("del-controls-anon").each(function(x){x.style.display = "inline"});
+    <%end %>
+</script>
+

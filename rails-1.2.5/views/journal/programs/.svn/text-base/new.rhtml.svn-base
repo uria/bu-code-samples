@@ -1,0 +1,9 @@
+<%@title = "New program"%>
+
+<%= render :partial => 'program_edition_template', :locals => {:url =>{:action => 'new'}}%>
+
+<script type="text/javascript">
+    Sortable.create("program_sessions", {tag:'div', handle:'handle',constraint:false});
+    on_new_session();
+</script>
+

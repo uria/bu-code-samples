@@ -1,0 +1,38 @@
+<div id="photo">
+<h2 id="title"><%=private_icon @photo.private%>[<%=@photo.taken_on%>] - <%=h @photo.title%></h2>
+<div id="image"><%=image_tag(url_for_file_column('photo', 'image', "medium")) %></div>
+<div class="owner-comments"><%=auto_link(simple_format(h(@photo.comment)))%></div>
+</div>
+
+<%if @buttons%>
+  <div class="button_container">
+  <%= button('Edit', {:action => 'edit', :id => @photo.id}, 'edit.gif')%>
+  <%= button('Delete', {:action => 'delete', :id => @photo.id}, 'delete.gif', {:confirm => "Delete photo.\nAre you sure?", :post => true})%>
+  </div>
+<%end%>
+
+<% cache(:action => 'show', :part => 'comments') do %>
+<div id="comments-header">
+  Comments
+</div>
+
+<div id="user-comments">
+  <%=render :partial => '/shared/comments/comment', :collection => @comments, :locals => {:commentable => @photo}%>
+</div>
+<% end %>
+
+<div id="comment-errors">
+  <%=error_messages_for('comment')%>
+</div>
+
+<%= form_remote_tag :url => {:action => 'new_comment', :id => @photo.id}, :before => "$('submit_comment').disabled = true", :loading => "$('loading_pic').style.display = 'inline'", :complete => "$('loading_pic').style.display = 'none'; $('submit_comment').disabled = false" ,:html => {:class => 'comment-form'}  %>
+  <%=render :partial => '/shared/comments/comment_form' %>
+<%= end_form_tag %>
+
+<script type="text/javascript">
+    document.getElementsByClassName("edit-controls-<%=current_user.login if logged_in?%>").each(function(x){x.style.display = "inline"});
+    document.getElementsByClassName("del-controls-<%=current_user.login if logged_in?%>").each(function(x){x.style.display = "inline"});
+    <%if write_permission?%>
+    document.getElementsByClassName("del-controls-anon").each(function(x){x.style.display = "inline"});
+    <%end %>
+</script>

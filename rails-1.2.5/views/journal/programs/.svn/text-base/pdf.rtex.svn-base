@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage{multirow}
+
+\pagestyle{empty}
+
+\oddsidemargin -0.2in
+\textwidth 6.5in
+
+\headheight 0.0in
+\headsep 0.0in
+\topmargin 0in
+\textheight 9.5in
+
+\begin{document}
+  %titulo
+  \begin{center}
+  \Huge <%=l @program.title%>\\
+  \end{center}
+  \normalsize
+  %contenido
+  <%@program.program_sessions.each do |ses|%>
+    \begin{center}
+    \section*{<%=l ses.name%>}
+    <% if ses.program_sets.size > 0 %>
+      \begin{tabular}{| p{7cm} | r | r | r r |}
+        \hline
+        \textbf{Exercise} & \textbf{Sets} & \textbf{Reps} & \multicolumn{2}{|c|}{\textbf{Intensity}} \\ \hline
+        <%partitionize(ses.program_sets).each do |sets|%>
+          <% if sets.size > 1 %>
+            <%sets.each_with_index do |set,i|%>
+              <% if i==0 %>
+                \multirow{<%=sets.length%>}{6.8cm}{<%=l set.exercise.name%>}&<%=set.sets%>&<%=set.reps%>&<%=l intensity_as_1rm_percentage(set.intensity)%>&(<%=intensity_as_xrm(set.intensity)%>)\\
+              <% else %>
+                &<%=set.sets%>&<%=set.reps%>&<%=l intensity_as_1rm_percentage(set.intensity)%>&(<%=intensity_as_xrm(set.intensity)%>)\\
+              <% end %>
+            <%end%>
+           <% else %>
+                <% set = sets[0] %>
+               <%=l set.exercise.name%>&<%=set.sets%>&<%=set.reps%>&<%=l intensity_as_1rm_percentage(set.intensity)%>&(<%=intensity_as_xrm(set.intensity)%>)\\
+           <% end %>
+           \hline
+        <%end%>
+      \end{tabular}
+    <% end%>
+    \end{center}
+    <%=l ses.comments%>
+    \pagebreak[3]
+  <%end%>
+  <%unless @program.comments.nil? || @program.comments == ""%>
+    \section*{Program comments}
+    <%=l @program.comments%>
+  <%end%>
+\end{document}
