@@ -11,7 +11,7 @@
 |
 |-- javascript
 |   |-- phonemic-transcriber            A website that enables its users to surf the web changind words for their
-|   |                                   phonemic transcription. Demo at http://transcriber.benignouria.com (In progress)
+|   |                                   phonemic transcription. Demo: http://transcriber.benignouria.com (In progress)
 |   |
 |   `-- svg-charts                      Code for the SVG dynamic charts in http://community.staleytraining.com
 |
@@ -20,10 +20,10 @@
 |-- rails-2.3.5                         Code for parts of a voucher listing website. (Work in progress)
 |
 `-- ruby
-    |-- proxies-ripper                  A screen scraper that reads public proxies listings from the web and stores them
-    |                                   in a DB. (Mechanize + Sequel)
+    |-- proxies-ripper                  A screen scraper that reads public proxy lists from the web and stores
+    |                                   them in a DB. (Mechanize + Sequel)
     |
-    |-- translator                      A screen scraper that translates strings using a website.
+    |-- translator                      A screen scraper that translates strings using a website. (Mechanize)
     |
     `-- vowel-teacher-prototype         A prototype for the vowel teacher that is currently being developed in C (uses
                                         GTK, threads, processes...)
